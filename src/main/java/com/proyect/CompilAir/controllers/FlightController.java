@@ -20,7 +20,7 @@ public class FlightController {
     private FlightService flightService;
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<Flight> createFlight(@RequestBody Flight flight) {
         Flight createdFlight = flightService.createFlight(flight);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdFlight);
@@ -34,8 +34,8 @@ public class FlightController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Flight>> getAllFlights() {
-        List<Flight> flights = flightService.getAllFlights();
+    public ResponseEntity<List<Flight>> getAllFlight() {
+        List<Flight> flights = flightService.getAllFlight();
         return ResponseEntity.ok(flights);
     }
 

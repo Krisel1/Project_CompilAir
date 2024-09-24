@@ -29,13 +29,13 @@ public class FlightService {
 
         existingFlight.setFlightName(flightDetails.getFlightName());
         existingFlight.setRoute(flightDetails.getRoute());
-        existingFlight.setNumberOfSeats(flightDetails.getNumberOfSeats());
+        existingFlight.setTotalSeats(flightDetails.getTotalSeats());
 
 
         return iFlightRepository.save(existingFlight);
     }
 
-    public List<Flight> getAllFlights() {
+    public List<Flight> getAllFlight() {
         return iFlightRepository.findAll();
     }
 
