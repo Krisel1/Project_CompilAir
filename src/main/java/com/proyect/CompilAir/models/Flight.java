@@ -52,13 +52,13 @@ public class Flight {
 
     }
 
-    @OneToMany
-    @JoinColumn(name = "route_id", nullable = false)
-    private Route route;
+//    @OneToMany
+ //   @JoinColumn(name = "route_id", nullable = false)
+//    private Route route;
 
-    @OneToMany
-    @JoinColumn(name = "booking_id", nullable = false)
-    private Booking booking;
+ //   @OneToMany
+ //   @JoinColumn(name = "booking_id", nullable = false)
+  //  private Booking booking;
 
 
 

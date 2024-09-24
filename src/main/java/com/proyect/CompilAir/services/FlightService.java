@@ -15,8 +15,7 @@ public class FlightService {
     @Autowired
     IFlightRepository iFlightRepository;
 
-    @Autowired
-    FlightController flightController;
+
 
     public Flight createFlight(Flight flight) {
         return iFlightRepository.save(flight);
@@ -28,7 +27,8 @@ public class FlightService {
 
 
         existingFlight.setFlightName(flightDetails.getFlightName());
-        existingFlight.setRoute(flightDetails.getRoute());
+        existingFlight.setDepartureDate(flightDetails.getDepartureDate());
+        existingFlight.setReturnDate(flightDetails.getReturnDate());
         existingFlight.setTotalSeats(flightDetails.getTotalSeats());
 
 
@@ -45,17 +45,13 @@ public class FlightService {
     }
 
     public boolean deleteFlight(Long id) {
-        try {
-            Flight flight = iFlightRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Flight not found with id " + id));
-
-            iFlightRepository.delete(flight);
+        if (iFlightRepository.existsById(id)) {
+            iFlightRepository.deleteById(id);
             return true;
-        } catch (Exception e) {
-
-            return false;
         }
+        return false;
     }
+
 }
 
 
