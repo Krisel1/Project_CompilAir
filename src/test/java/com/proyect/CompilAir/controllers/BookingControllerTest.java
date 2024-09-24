@@ -13,9 +13,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import java.util.ArrayList;
 
 @SpringBootTest
@@ -37,7 +37,7 @@ public class BookingControllerTest {
         when(bookingService.getAllBookings()).thenReturn(new ArrayList<>());
 
 
-        mockMvc.perform(get("/api/v1/booking/list")
+        mockMvc.perform(get("/api/bookings")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -47,12 +47,12 @@ public class BookingControllerTest {
     @Test
     void Test_Get_Booking_By_Id() throws Exception {
 
-        Booking booking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni",3454556,"street piruleta",21003,"huelva","Spain",null,null);
+        Booking booking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni",3454556,"street piruleta",21003,"Spain","seville",null,null);
 
         when(bookingService.getBookingById(1L)).thenReturn(booking);
 
 
-        mockMvc.perform(get("/api/v1/booking/list/1")
+        mockMvc.perform(get("/api/bookings/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -60,5 +60,51 @@ public class BookingControllerTest {
         verify(bookingService, times(1)).getBookingById(1L);
     }
 
+    @Test
+    void test_Create_Booking() throws Exception {
+        Booking booking = new Booking(1L,"Fran","Cano",43754,"male","hola@hola.es",null,"dni",3454556,"hola",3424,"spain","huelva",null,null);
+        booking.setId(1L);
 
+        when(bookingService.createBooking(any(Booking.class))).thenReturn(booking);
+
+        mockMvc.perform(post("/api/bookings")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"id\":1,\"name\":Fran\"surname\":Cano\"phone\":43754\"genre\":male\"email\":hola@hola.es\"birthdayDate\":null\"identificationType\":dni\"identificationNumber\":3454556\"address\":hola\"zipCode\":3424\"country\":spain\"city\":huelva\"user\":null\"flight\":null}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1));
+
+        verify(bookingService, times(1)).createBooking(any(Booking.class));
+    }
+
+//    @Test
+//    public void test_Create_Booking() {
+//        Long id = 1L;
+//        Booking booking = new Booking(1L,"Jackie","hola",630948565,"Female","jacky@gmail.com",null,"Dni",43905860,"los olivos",49347,"Lima","Peru",null,null);
+//        booking.setId(id);
+//
+//        bookingService.createBooking(booking);
+//
+//        verify(bookingService, times(1)).createBooking(booking);
+//    }
+
+    @Test
+    public void test_Update_Booking() {
+        Long id = 1L;
+        Booking booking = new Booking(1L,"Krisel","hola",4968034,"Female","krisel@gmail.com",null,"Dni",87435438,"estepona",41002,"spain","seville",null,null);
+        booking.setId(id);
+
+        bookingService.updateBooking(booking);
+
+        verify(bookingService, times(1)).updateBooking(booking);
+    }
+
+    @Test
+    void delete_Booking_By_Id() throws Exception {
+        long BookingId = 1L;
+
+        mockMvc.perform(delete("/api/bookings/{id}", BookingId))
+                .andExpect(status().isOk());
+
+        verify(bookingService, times(1)).deleteBooking(BookingId);
+    }
 }

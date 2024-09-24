@@ -39,7 +39,7 @@ public class BookingService {
             ibookingRepository.deleteById(id);
             return "Delete Booking successful";
         }catch (Exception error){
-            return "Booking not Found with" + id;
+            return "Booking not Found";
         }
     }
 }

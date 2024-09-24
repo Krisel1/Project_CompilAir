@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/v1/booking")
+@RequestMapping("/api/bookings")
 public class BookingController {
 
     private final BookingService bookingService;
@@ -16,28 +16,28 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    @GetMapping(path = "/list")
+    @GetMapping(path = "")
     public ArrayList<Booking> getAllBookings(){
         return bookingService.getAllBookings();
     }
 
-    @GetMapping(path = "/list/{id}")
+    @GetMapping(path = "/{id}")
     public Booking getBookingById(@PathVariable("id") Long id){
         return bookingService.getBookingById(id);
     }
 
-    @PostMapping(path ="/create")
+    @PostMapping(path ="")
     public Booking createBooking(@RequestBody Booking newBooking){
         return bookingService.createBooking(newBooking);
     }
 
-    @PutMapping(path ="/update/{id}")
+    @PutMapping(path ="/{id}")
     public void updateBooking(@RequestBody Booking booking, @PathVariable("id") Long id) {
         booking.setId(id);
         bookingService.updateBooking(booking);
     }
 
-    @DeleteMapping(path = "/delete/{id}")
+    @DeleteMapping(path = "/{id}")
     public String deleteBooking(@PathVariable("id")Long id){
         return bookingService.deleteBooking(id);
     }
