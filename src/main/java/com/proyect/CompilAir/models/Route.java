@@ -1,9 +1,13 @@
 package com.proyect.CompilAir.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "routes")
+@Getter
+@Setter
 public class Route {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,27 +29,4 @@ public class Route {
     public Route() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNameRoute() {
-        return nameRoute;
-    }
-
-    public void setNameRoute(String nameRoute) {
-        this.nameRoute = nameRoute;
-    }
-
-    public Route getRoute() {
-        return route;
-    }
-
-    public void setRoute(Route route) {
-        this.route = route;
-    }
 }
