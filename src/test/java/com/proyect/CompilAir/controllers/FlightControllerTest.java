@@ -8,109 +8,133 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
+
 import org.springframework.test.web.servlet.MockMvc;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
+import java.util.ArrayList;
 
 
+
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest
-class FlightControllerTest {
+@SpringBootTest
+@AutoConfigureMockMvc
+public class FlightControllerTest {
 
-@Autowired
-private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-@MockBean
-private FlightService flightService;
+    @MockBean
+    private FlightService flightService;
 
-private ObjectMapper objectMapper;
+    @BeforeEach
+    void setup(WebApplicationContext webApplicationContext) {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    }
 
-private Flight flight;
+    @Test
+    void test_Get_All_Flights() throws Exception {
+        when(flightService.getAllFlight()).thenReturn(new ArrayList<>());
 
-@BeforeEach
-public void setUp() {
-    MockitoAnnotations.openMocks(this);
+        mockMvc.perform(get("/api/flights")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
 
-    objectMapper = new ObjectMapper();
-    objectMapper.registerModule(new JavaTimeModule());
+        verify(flightService, times(1)).getAllFlight();
+    }
 
-    flight = new Flight(1, "FL123", true, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2), 150);
-}
+    @Test
+    void test_Get_Flight_By_Id() throws Exception {
+        Flight flight = new Flight(1, "FL123", true,
+                LocalDateTime.of(2024, 9, 25, 10, 0),
+                LocalDateTime.of(2024, 9, 25, 12, 0),
+                150);
 
-@WithMockUser
-@Test
-public void CreateFlight() throws Exception {
-    when(flightService.createFlight(any(Flight.class))).thenReturn(flight);
+        when(flightService.getFlightById(1L)).thenReturn(flight);
 
-    mockMvc.perform(post("/api/flights")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(flight)))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.flightName").value("FL123"));
-}
+        mockMvc.perform(get("/api/flights/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.flightName").value("FL123"))
+                .andExpect(jsonPath("$.flightStatus").value(true))
+                .andExpect(jsonPath("$.totalSeats").value(150));
 
-@WithMockUser
-@Test
-public void UpdateFlight() throws Exception {
-    when(flightService.updateFlight(eq(1L), any(Flight.class))).thenReturn(flight);
+        verify(flightService, times(1)).getFlightById(1L);
+    }
 
-    mockMvc.perform(put("/api/flights/1")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(flight)))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.flightName").value("FL123"));
-}
+    @Test
+    void test_Create_Flight() throws Exception {
+        Flight flight = new Flight(1, "FL123", true,
+                LocalDateTime.of(2024, 9, 25, 10, 0),
+                LocalDateTime.of(2024, 9, 25, 12, 0),
+                150);
 
-@WithMockUser
-@Test
-public void GetAllFlight() throws Exception {
-    List<Flight> flightList = Arrays.asList(flight);
-    when(flightService.getAllFlight()).thenReturn(flightList);
 
-    mockMvc.perform(get("/api/flights"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].flightName").value("FL123"));
-}
+        when(flightService.createFlight(any(Flight.class))).thenReturn(flight);
 
-@WithMockUser
-@Test
-public void GetFlightById() throws Exception {
-    when(flightService.getFlightById(1L)).thenReturn(flight);
 
-    mockMvc.perform(get("/api/flights/1"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.flightName").value("FL123"));
-}
+        mockMvc.perform(post("/api/flights")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"flightName\":\"FL123\",\"flightStatus\":true,\"departureDate\":\"2024-09-25T10:00:00\",\"returnDate\":\"2024-09-25T12:00:00\",\"totalSeats\":150}"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.flightName").value("FL123"));
 
-@WithMockUser
-@Test
-public void DeleteFlightById_Success() throws Exception {
-    when(flightService.deleteFlight(1L)).thenReturn(true);
+        verify(flightService, times(1)).createFlight(any(Flight.class));
+    }
 
-    mockMvc.perform(delete("/api/flights/1"))
-            .andExpect(status().isOk())
-            .andExpect(content().string("Project with id 1 was deleted"));
-}
+    @Test
+    public void test_Update_Flight() throws Exception {
+        Long id = 1L;
+        Flight flight = new Flight(1, "FL456", false,
+                LocalDateTime.of(2024, 9, 25, 14, 0),
+                LocalDateTime.of(2024, 9, 25, 16, 0),
+                200);
 
-@WithMockUser
-@Test
-public void DeleteFlightById_NotFound() throws Exception {
-    when(flightService.deleteFlight(1L)).thenReturn(false);
 
-    mockMvc.perform(delete("/api/flights/1"))
-            .andExpect(status().isOk())
-            .andExpect(content().string("Project with id 1 not found"));
-}
+        when(flightService.updateFlight(eq(id), any(Flight.class))).thenReturn(flight);
+
+        mockMvc.perform(put("/api/flights/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"flightName\":\"FL456\",\"flightStatus\":false,\"departureDate\":\"2024-09-25T14:00:00\",\"returnDate\":\"2024-09-25T16:00:00\",\"totalSeats\":200}"))
+                .andExpect(status().isOk());
+
+
+        verify(flightService, times(1)).updateFlight(eq(id), any(Flight.class));
+    }
+
+    @Test
+    void delete_Flight_By_Id() throws Exception {
+        long flightId = 1L;
+
+        when(flightService.deleteFlight(flightId)).thenReturn(true);
+
+        mockMvc.perform(delete("/api/flights/{id}", flightId))
+                .andExpect(status().isOk());
+
+        verify(flightService, times(1)).deleteFlight(flightId);
+    }
+
+    @Test
+    void delete_Flight_By_Id_Not_Found() throws Exception {
+        long flightId = 1L;
+
+        when(flightService.deleteFlight(flightId)).thenReturn(false);
+
+        mockMvc.perform(delete("/api/flights/{id}", flightId))
+                .andExpect(status().isOk());
+
+        verify(flightService, times(1)).deleteFlight(flightId);
+    }
 }

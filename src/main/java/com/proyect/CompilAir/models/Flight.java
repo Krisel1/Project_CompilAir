@@ -16,7 +16,7 @@ public class Flight {
 
     @Id
     @GeneratedValue ( strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @NotBlank(message = "El número de vuelo no puede estar vacío")
     @Size(max = 10, message = "El número de vuelo no puede exceder 10 caracteres")
@@ -47,10 +47,11 @@ public class Flight {
         this.returnDate = returnDate;
         this.totalSeats = totalSeats;
     }
-
     public Flight() {
 
     }
+
+
 
 //    @OneToMany
  //   @JoinColumn(name = "route_id", nullable = false)

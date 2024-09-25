@@ -19,14 +19,14 @@ public class FlightController {
     @Autowired
     private FlightService flightService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping("")
     public ResponseEntity<Flight> createFlight(@RequestBody Flight flight) {
         Flight createdFlight = flightService.createFlight(flight);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdFlight);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PutMapping("/{id}")
     public ResponseEntity<Flight> updateFlight(@PathVariable Long id, @RequestBody Flight flightDetails) {
         Flight updatedFlight = flightService.updateFlight(id, flightDetails);
@@ -35,8 +35,8 @@ public class FlightController {
 
     @GetMapping
     public ResponseEntity<List<Flight>> getAllFlight() {
-        List<Flight> flights = flightService.getAllFlight();
-        return ResponseEntity.ok(flights);
+        List<Flight> flight = flightService.getAllFlight();
+        return ResponseEntity.ok(flight);
     }
 
     @GetMapping("/{id}")
@@ -46,7 +46,7 @@ public class FlightController {
     }
 
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @DeleteMapping("/{id}")
     public String deleteFlightById(@PathVariable Long id) {
         boolean ok = flightService.deleteFlight(id);
