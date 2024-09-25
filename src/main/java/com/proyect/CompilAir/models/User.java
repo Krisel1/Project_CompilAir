@@ -1,46 +1,82 @@
 package com.proyect.CompilAir.models;
 
 import jakarta.persistence.*;
-import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.proyect.CompilAir.CompilAirApplication;
+import java.util.Collection;
+import java.util.List;
 
-import java.util.*;
-
-
-@NoArgsConstructor
 @Entity
-@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@Table(name = "User")
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
-    Integer id;
-    
-    @Basic
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(nullable = false)
-    String username;
-    String email;
-    String password;
+    private String username;
+    private String email;
+    private String password;
 
     @Enumerated(EnumType.STRING)
-    ERole role;
+    private ERole role;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<User> users = new HashSet<>();
+    public User(Long id, ERole role, String password, String email, String username) {
+        this.id = id;
+        this.role = role;
+        this.password = password;
+        this.email = email;
+        this.username = username;
+    }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CompilAirApplication> compilAirApplication = new HashSet<>();
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public ERole getRole() {
+        return role;
+    }
+
+    public void setRole(ERole role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role.name())));
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
@@ -63,13 +99,47 @@ public class User implements UserDetails {
         return true;
     }
 
-    @Override
-    public String getPassword() {
-        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+public static Builder builder()
+    {
+        return new Builder();
     }
 
-    @Override
-    public String getUsername() {
-        throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+    public static class Builder {
+        private Long id;
+        private String username;
+        private String email;
+        private String password;
+        private ERole role;
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder role(ERole role) {
+            this.role = role;
+            return this;
+        }
+
+
+        public User build() {
+            return new User(id, role, password, email, username);
+
+        }
     }
 }
