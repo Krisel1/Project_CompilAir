@@ -76,16 +76,6 @@ public class BookingControllerTest {
         verify(bookingService, times(1)).createBooking(any(Booking.class));
     }
 
-//    @Test
-//    public void test_Create_Booking() {
-//        Long id = 1L;
-//        Booking booking = new Booking(1L,"Jackie","hola",630948565,"Female","jacky@gmail.com",null,"Dni",43905860,"los olivos",49347,"Lima","Peru",null,null);
-//        booking.setId(id);
-//
-//        bookingService.createBooking(booking);
-//
-//        verify(bookingService, times(1)).createBooking(booking);
-//    }
 
     @Test
     public void test_Update_Booking() {
