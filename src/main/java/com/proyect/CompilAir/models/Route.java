@@ -17,16 +17,16 @@ public class Route {
     private String nameRoute;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "route_id")
-    private Route route;
-
-    public Route(Long id, String nameRoute, Route route) {
-        this.id = id;
-        this.nameRoute = nameRoute;
-        this.route = route;
-    }
+    @JoinColumn(name = "booking_id")
+    private Booking booking;
 
     public Route() {
+    }
+
+    public Route(String nameRoute, Long id, Booking booking) {
+        this.nameRoute = nameRoute;
+        this.id = id;
+        //this.booking = booking;
     }
 
     public Long getId() {
@@ -45,11 +45,11 @@ public class Route {
         this.nameRoute = nameRoute;
     }
 
-    public Route getRoute() {
-        return route;
+    public Booking getBooking() {
+        return booking;
     }
 
-    public void setRoute(Route route) {
-        this.route = route;
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 }
