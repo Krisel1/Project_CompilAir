@@ -26,7 +26,7 @@ public class Route {
     public Route(String nameRoute, Long id, Booking booking) {
         this.nameRoute = nameRoute;
         this.id = id;
-        //this.booking = booking;
+        this.booking = booking;
     }
 
     public Long getId() {
