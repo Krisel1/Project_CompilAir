@@ -4,13 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-<<<<<<< HEAD
-//@Entity
-//@Table(name)
-//public class Route {
 
-//}
-=======
 @Entity
 @Table(name = "routes")
 @Getter
@@ -57,4 +51,4 @@ public class Route {
         this.booking = booking;
     }
 }
->>>>>>> dev
+

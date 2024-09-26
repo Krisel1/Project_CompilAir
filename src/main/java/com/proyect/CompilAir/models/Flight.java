@@ -1,10 +1,5 @@
 package com.proyect.CompilAir.models;
 
-<<<<<<< HEAD
-//public class Flight {
-//}
-=======
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -71,4 +66,4 @@ public class Flight {
 
 
 }
->>>>>>> dev
+
