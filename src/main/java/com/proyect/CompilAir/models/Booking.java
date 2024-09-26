@@ -1,4 +1,4 @@
 package com.proyect.CompilAir.models;
 
-public class Booking {
-}
+//public class Booking {
+//}

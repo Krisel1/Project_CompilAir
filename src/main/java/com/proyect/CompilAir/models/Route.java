@@ -2,8 +2,8 @@ package com.proyect.CompilAir.models;
 
 import jakarta.persistence.Entity;
 
-@Entity
+//@Entity
 //@Table(name)
-public class Route {
+//public class Route {
 
-}
+//}
