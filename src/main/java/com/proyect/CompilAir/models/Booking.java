@@ -1,5 +1,6 @@
 package com.proyect.CompilAir.models;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
@@ -205,3 +206,4 @@ public class Booking {
     }
 
 }
+

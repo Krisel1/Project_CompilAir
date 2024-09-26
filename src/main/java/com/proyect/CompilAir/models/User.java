@@ -1,51 +1,82 @@
 package com.proyect.CompilAir.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
-@Setter
-@Getter
 @Entity
+@Table(name = "User")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Basic
     @Column(nullable = false)
     private String username;
-
+    private String email;
     private String password;
 
-    @Column(unique = true)
-    private String email;
-
     @Enumerated(EnumType.STRING)
-    ERole role;
+    private ERole role;
 
-    public User() {
+
+    public User(Long id, ERole role, String password, String email, String username) {
+        this.id = id;
+        this.role = role;
+        this.password = password;
+        this.email = email;
+        this.username = username;
     }
 
-    public User(Builder builder) {
-        this.id = builder.id;
-        this.username = builder.username;
-        this.password = builder.password;
-        this.email = builder.email;
-        this.role = builder.role;
-
+    public Long getId() {
+        return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public ERole getRole() {
+        return role;
+    }
+
+    public void setRole(ERole role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role.name())));
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
@@ -68,40 +99,16 @@ public class User implements UserDetails {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", role=" + role +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(email, user.email) &&
-                role == user.role;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password, email, role);
+public static Builder builder()
+    {
+        return new Builder();
     }
 
     public static class Builder {
         private Long id;
         private String username;
-        private String password;
         private String email;
+        private String password;
         private ERole role;
 
         public Builder id(Long id) {
@@ -114,13 +121,13 @@ public class User implements UserDetails {
             return this;
         }
 
-        public Builder password(String password) {
-            this.password = password;
+        public Builder email(String email) {
+            this.email = email;
             return this;
         }
 
-        public Builder email(String email) {
-            this.email = email;
+        public Builder password(String password) {
+            this.password = password;
             return this;
         }
 
@@ -129,10 +136,10 @@ public class User implements UserDetails {
             return this;
         }
 
+
         public User build() {
-            return new User(this);
+            return new User(id, role, password, email, username);
+
         }
     }
-
 }
-
