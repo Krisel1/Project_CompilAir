@@ -1,4 +1,7 @@
 package com.proyect.CompilAir.repositories;
 
-public interface IBookingRepository {
+import com.proyect.CompilAir.models.Booking;
+import org.springframework.data.repository.CrudRepository;
+
+public interface IBookingRepository extends CrudRepository<Booking, Long> {
 }
