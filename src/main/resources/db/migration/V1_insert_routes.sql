@@ -1,0 +1,10 @@
+INSERT INTO routes(id, nameRoute) VALUES (1, "SVQ-IBZ");
+INSERT INTO routes(id, nameRoute) VALUES (2, "MAD-BCN");
+INSERT INTO routes(id, nameRoute) VALUES (3, "AGP-LPA");
+INSERT INTO routes(id, nameRoute) VALUES (4, "BIO-PMI");
+INSERT INTO routes(id, nameRoute) VALUES (5, "VLC-SCQ");
+INSERT INTO routes(id, nameRoute) VALUES (6, "MAD-SVQ");
+INSERT INTO routes(id, nameRoute) VALUES (7, "BCN-IBZ");
+INSERT INTO routes(id, nameRoute) VALUES (8, "SVQ-BCN");
+INSERT INTO routes(id, nameRoute) VALUES (9, "MAD-PMI");
+INSERT INTO routes(id, nameRoute) VALUES (10, "AGP-MAD");
