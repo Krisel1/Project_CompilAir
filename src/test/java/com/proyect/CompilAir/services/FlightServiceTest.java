@@ -58,11 +58,11 @@ class FlightServiceTest {
     }
 
     @Test
-    public void getAllFlight() {
+    public void getAllFlights() {
         List<Flight> flightList = Arrays.asList(flight);
         when(flightRepository.findAll()).thenReturn(flightList);
 
-        List<Flight> flights = flightService.getAllFlight();
+        List<Flight> flights = flightService.getAllFlights();
 
         assertEquals(1, flights.size());
         assertEquals("FL123", flights.get(0).getFlightName());

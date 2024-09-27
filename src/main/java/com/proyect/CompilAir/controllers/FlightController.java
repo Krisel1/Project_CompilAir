@@ -50,7 +50,7 @@ public class FlightController {
 
     @GetMapping("/available/{destination}")
     public ResponseEntity<List<FlightDTO>> getAvailableFlights(@PathVariable String destination) {
-        List<Flight> availableFlights = flightService.getAvailableFlights();
+        List<Flight> availableFlights = flightService.getAvailableFlights(destination);
         List<FlightDTO> availableFlightDTOs = availableFlights.stream()
                 .map(FlightMapper::toDTO)
                 .collect(Collectors.toList());
