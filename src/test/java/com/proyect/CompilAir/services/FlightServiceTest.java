@@ -32,7 +32,7 @@ class FlightServiceTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        flight = new Flight(1, "FL123", true, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2), 150);
+        flight = new Flight(1L, "FL123", true, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2), 150L,100L);
     }
 
     @Test

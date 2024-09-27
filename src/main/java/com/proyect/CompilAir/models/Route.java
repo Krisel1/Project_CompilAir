@@ -13,9 +13,11 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Getter
     @Column(name = "nameRoute")
     private String nameRoute;
 
+    @Getter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id")
     private Booking booking;
@@ -34,16 +36,8 @@ public class Route {
         this.id = id;
     }
 
-    public String getNameRoute() {
-        return nameRoute;
-    }
-
     public void setNameRoute(String nameRoute) {
         this.nameRoute = nameRoute;
-    }
-
-    public Booking getBooking() {
-        return booking;
     }
 
     public void setBooking(Booking booking) {
