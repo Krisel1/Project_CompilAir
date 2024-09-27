@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.Set;
+
 import jakarta.validation.constraints.*;
 
 
@@ -65,17 +67,24 @@ public class Flight {
 
 
 
-    @OneToMany
-    @JoinColumn(name = "route_id", nullable = false)
-   private Route route;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private Set<Route> route;
 
-    @OneToMany
-    @JoinColumn(name = "booking_id", nullable = false)
-    private Booking booking;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private Set<Booking> booking;
 
-   @OneToMany
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private Set<User> user;
 
 
 }
