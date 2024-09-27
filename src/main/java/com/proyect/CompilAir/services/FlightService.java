@@ -1,6 +1,5 @@
 package com.proyect.CompilAir.services;
 
-import com.proyect.CompilAir.controllers.FlightController;
 import com.proyect.CompilAir.excepcions.ResourceNotFoundException;
 import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.repositories.IFlightRepository;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightService {
@@ -35,8 +35,15 @@ public class FlightService {
         return iFlightRepository.save(existingFlight);
     }
 
-    public List<Flight> getAllFlight() {
+    public List<Flight> getAllFlights() {
         return iFlightRepository.findAll();
+    }
+
+    public List<Flight> getAvailableFlights(String destination) {
+        List<Flight> allFlights = iFlightRepository.findByDestination(destination);
+        return allFlights.stream()
+                .filter(flight -> flight.availableSeats() > 0)
+                .collect(Collectors.toList());
     }
 
     public Flight getFlightById(Long id) {

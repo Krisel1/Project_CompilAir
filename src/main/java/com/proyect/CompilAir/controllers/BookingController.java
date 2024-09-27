@@ -1,7 +1,11 @@
 package com.proyect.CompilAir.controllers;
 
+import com.proyect.CompilAir.dto.booking.BookingDTO;
 import com.proyect.CompilAir.models.Booking;
 import com.proyect.CompilAir.services.BookingService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,24 +25,57 @@ public class BookingController {
         return bookingService.getAllBookings();
     }
 
-    @GetMapping(path = "/{id}")
-    public Booking getBookingById(@PathVariable("id") Long id){
-        return bookingService.getBookingById(id);
+    @GetMapping("/booking/{id}")
+    public ResponseEntity<BookingDTO> getBookingById(@PathVariable Long id) {
+        Booking booking = bookingService.getBookingById(id);
+        BookingDTO bookingDTO = convertToDto(booking);
+        return ResponseEntity.ok(bookingDTO);
     }
 
     @PostMapping(path ="")
-    public Booking createBooking(@RequestBody Booking newBooking){
-        return bookingService.createBooking(newBooking);
+    public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO bookingDTO) {
+        Booking booking = convertToEntity(bookingDTO);
+        bookingService.createBooking(booking);
+        BookingDTO responseDto = convertToDto(booking);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
     @PutMapping(path ="/{id}")
-    public void updateBooking(@RequestBody Booking booking, @PathVariable("id") Long id) {
+    public void updateBooking(@Valid @RequestBody BookingDTO bookingDTO, @PathVariable("id") Long id) {
+        Booking booking = convertToEntity(bookingDTO);
         booking.setId(id);
         bookingService.updateBooking(booking);
     }
 
     @DeleteMapping(path = "/{id}")
-    public String deleteBooking(@PathVariable("id")Long id){
-        return bookingService.deleteBooking(id);
+    public ResponseEntity<String> deleteBooking(@PathVariable("id") Long id){
+        try {
+            String response = bookingService.deleteBooking(id);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Booking not found");
+        }
+    }
+
+    private BookingDTO convertToDto(Booking booking) {
+        return new BookingDTO(
+                booking.getId(),
+                booking.getName(),
+                booking.getSurname(),
+                booking.getEmail(),
+                booking.getCity(),
+                booking.getCountry()
+        );
+    }
+
+    private Booking convertToEntity(BookingDTO bookingDTO) {
+        Booking booking = new Booking();
+        booking.setId(bookingDTO.getId());
+        booking.setName(bookingDTO.getName());
+        booking.setSurname(bookingDTO.getSurname());
+        booking.setEmail(bookingDTO.getEmail());
+        booking.setCity(bookingDTO.getCity());
+        booking.setCountry(bookingDTO.getCountry());
+        return booking;
     }
 }

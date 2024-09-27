@@ -32,7 +32,7 @@ class FlightServiceTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        flight = new Flight(1, "FL123", true, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2), 150);
+        flight = new Flight(1L, "FL123", true, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2), 150L,100L);
     }
 
     @Test
@@ -58,11 +58,11 @@ class FlightServiceTest {
     }
 
     @Test
-    public void getAllFlight() {
+    public void getAllFlights() {
         List<Flight> flightList = Arrays.asList(flight);
         when(flightRepository.findAll()).thenReturn(flightList);
 
-        List<Flight> flights = flightService.getAllFlight();
+        List<Flight> flights = flightService.getAllFlights();
 
         assertEquals(1, flights.size());
         assertEquals("FL123", flights.get(0).getFlightName());
