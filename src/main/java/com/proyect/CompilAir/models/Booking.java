@@ -1,11 +1,7 @@
 package com.proyect.CompilAir.models;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
-
 
 @Entity
 @Table(name = "Booking")
@@ -55,7 +51,6 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
 
     @ManyToOne
     @JoinColumn(name = "flight_id", nullable = false)

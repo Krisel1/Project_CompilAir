@@ -1,13 +1,18 @@
 package com.proyect.CompilAir.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "User")
 public class User implements UserDetails {
@@ -24,6 +29,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private ERole role;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Booking> bookings;
 
     public User(Long id, ERole role, String password, String email, String username) {
         this.id = id;
@@ -32,47 +39,6 @@ public class User implements UserDetails {
         this.email = email;
         this.username = username;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public ERole getRole() {
-        return role;
-    }
-
-    public void setRole(ERole role) {
-        this.role = role;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -99,7 +65,7 @@ public class User implements UserDetails {
         return true;
     }
 
-public static Builder builder()
+    public static Builder builder()
     {
         return new Builder();
     }
@@ -110,6 +76,7 @@ public static Builder builder()
         private String email;
         private String password;
         private ERole role;
+
 
         public Builder id(Long id) {
             this.id = id;
@@ -135,7 +102,6 @@ public static Builder builder()
             this.role = role;
             return this;
         }
-
 
         public User build() {
             return new User(id, role, password, email, username);
