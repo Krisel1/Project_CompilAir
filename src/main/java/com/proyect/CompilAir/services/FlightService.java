@@ -38,7 +38,8 @@ public class FlightService {
     public List<Flight> getAllFlights() {
         return iFlightRepository.findAll();
     }
-    public List<Flight> getAvailableFlights() {
+
+    public List<Flight> getAvailableFlights(String destination) {
         List<Flight> allFlights = iFlightRepository.findByDestination(destination);
         return allFlights.stream()
                 .filter(flight -> flight.availableSeats() > 0)
