@@ -4,13 +4,12 @@ import com.proyect.CompilAir.dto.flight.FlightDTO;
 import com.proyect.CompilAir.dto.flight.FlightMapper;
 import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.services.FlightService;
-import org.aspectj.bridge.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.Destination;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,7 +49,7 @@ public class FlightController {
     }
 
     @GetMapping("/available/{destination}")
-    public ResponseEntity<List<FlightDTO>> getAvailableFlights() {
+    public ResponseEntity<List<FlightDTO>> getAvailableFlights(@PathVariable String destination) {
         List<Flight> availableFlights = flightService.getAvailableFlights();
         List<FlightDTO> availableFlightDTOs = availableFlights.stream()
                 .map(FlightMapper::toDTO)

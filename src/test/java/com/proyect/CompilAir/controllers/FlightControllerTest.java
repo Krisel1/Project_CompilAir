@@ -17,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 import static org.hamcrest.Matchers.hasSize;
@@ -123,14 +124,14 @@ public class FlightControllerTest {
                 LocalDateTime.of(2024, 9, 25, 16, 0),
                 200L,100L);
         flight2.setReservedSeats(200);
-        when(flightService.getAvailableFlights("Madrid")).thenReturn(Arrays.asList(flight1));
+        when(flightService.getAvailableFlights()).thenReturn(Arrays.asList(flight1));
 
         mockMvc.perform(get("/api/flights/available/{destination}", "Madrid"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].flightName").value("FL123"));
 
-        verify(flightService, times(1)).getAvailableFlights("Madrid");
+        verify(flightService, times(1)).getAvailableFlights();
     }
     @Test
     void delete_Flight_By_Id() throws Exception {
