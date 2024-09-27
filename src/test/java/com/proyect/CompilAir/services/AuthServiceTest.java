@@ -4,6 +4,7 @@ import com.proyect.CompilAir.dto.request.LoginRequest;
 import com.proyect.CompilAir.dto.request.RegisterRequest;
 import com.proyect.CompilAir.dto.response.AuthResponse;
 import com.proyect.CompilAir.models.ERole;
+import static com.proyect.CompilAir.models.ERole.USER;
 import com.proyect.CompilAir.models.User;
 import com.proyect.CompilAir.repositories.IUserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 
@@ -121,7 +123,7 @@ public class AuthServiceTest {
 
         RegisterRequest registerRequest = new RegisterRequest(username, email, password, ERole.USER);
 
-        when(iUserRepository.findByUsername(username)).thenReturn(Optional.of(new User()));
+        when(iUserRepository.findByUsername(username)).thenReturn(Optional.of(new User(1L, USER, "password1", "user1@example.com", "Krisel")));
 
         assertThrows(RuntimeException.class, () -> authService.register(registerRequest));
 

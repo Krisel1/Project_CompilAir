@@ -1,6 +1,5 @@
 package com.proyect.CompilAir.models;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +8,7 @@ import jakarta.validation.constraints.*;
 
 
 @Entity
-@Table(name = "Flights")
+@Table(name = "Flight")
 @Getter
 @Setter
 public class Flight {
@@ -37,33 +36,47 @@ public class Flight {
 
     @Min(value = 1, message = "El número total de asientos debe ser al menos 1")
     @Column(nullable = false)
-    private long totalSeats;
+    private Long totalSeats;
 
-    public Flight(int id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, int totalSeats) {
+
+    @Min(value = 0, message = "Los asientos reservados no pueden ser negativos")
+    @Column(nullable = false)
+    private long reservedSeats = 0;
+
+    
+
+    public Flight() {
+
+    }
+
+    public Flight(long id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, Long totalSeats, long reservedSeats) {
         this.id = id;
         this.flightName = flightName;
         this.flightStatus = flightStatus;
         this.departureDate = departureDate;
         this.returnDate = returnDate;
         this.totalSeats = totalSeats;
-    }
-    public Flight() {
-
+        this.reservedSeats = reservedSeats;
     }
 
+    public long availableSeats() {
+        return totalSeats - reservedSeats;
+    }
 
 
-//    @OneToMany
- //   @JoinColumn(name = "route_id", nullable = false)
-//    private Route route;
 
-//    @OneToMany
-//    @JoinColumn(name = "booking_id", nullable = false)
-//    private Booking booking;
+    @OneToMany
+    @JoinColumn(name = "route_id", nullable = false)
+   private Route route;
 
-//    @OneToMany
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private User user;
+    @OneToMany
+    @JoinColumn(name = "booking_id", nullable = false)
+    private Booking booking;
+
+   @OneToMany
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 
 }
+
