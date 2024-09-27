@@ -51,12 +51,12 @@ public class Booking {
     @Column(name ="city")
     private String city;
 
-    @JsonBackReference
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @JsonBackReference
+
     @ManyToOne
     @JoinColumn(name = "flight_id", nullable = false)
     private Flight flight;

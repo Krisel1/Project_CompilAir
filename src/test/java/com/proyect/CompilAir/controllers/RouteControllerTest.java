@@ -85,7 +85,7 @@ class RouteControllerTest {
 
     @Test
     void getRoutesById() throws Exception {
-        when(routeService.getRoutebyId(anyLong())).thenReturn(Optional.ofNullable(route1));
+        when(routeService.getRouteById(anyLong())).thenReturn(Optional.ofNullable(route1));
         mockController
                 .perform(MockMvcRequestBuilders.get("/api/routes/1"))
                 .andExpect(status().isOk())
