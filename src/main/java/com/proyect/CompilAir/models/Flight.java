@@ -45,13 +45,14 @@ public class Flight {
     @Column(nullable = false)
     private long reservedSeats = 0;
 
-    
+    @Column(name = "destination")
+    private String destination;
 
     public Flight() {
 
     }
 
-    public Flight(long id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, Long totalSeats, long reservedSeats) {
+    public Flight(long id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, Long totalSeats, long reservedSeats,String destination) {
         this.id = id;
         this.flightName = flightName;
         this.flightStatus = flightStatus;
@@ -59,6 +60,7 @@ public class Flight {
         this.returnDate = returnDate;
         this.totalSeats = totalSeats;
         this.reservedSeats = reservedSeats;
+        this.destination = destination;
     }
 
     public long availableSeats() {

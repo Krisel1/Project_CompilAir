@@ -15,13 +15,14 @@ public class FlightDTO {
     private LocalDateTime returnDate;
     private Long totalSeats;
     private long reservedSeats;
+    private String destination;
 
 
     public FlightDTO() {}
 
 
     public FlightDTO(long id, String flightName, boolean flightStatus, LocalDateTime departureDate,
-                     LocalDateTime returnDate, Long totalSeats, long reservedSeats) {
+                     LocalDateTime returnDate, Long totalSeats, long reservedSeats, String destination) {
         this.id = id;
         this.flightName = flightName;
         this.flightStatus = flightStatus;
@@ -29,5 +30,7 @@ public class FlightDTO {
         this.returnDate = returnDate;
         this.totalSeats = totalSeats;
         this.reservedSeats = reservedSeats;
+        this.destination = destination;
     }
+
 }
