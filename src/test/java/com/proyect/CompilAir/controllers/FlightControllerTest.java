@@ -55,7 +55,7 @@ public class FlightControllerTest {
         Flight flight = new Flight(1L, "FL123", true,
                 LocalDateTime.of(2024, 9, 25, 10, 0),
                 LocalDateTime.of(2024, 9, 25, 12, 0),
-                150L, 50L);
+                150L, 50L,"seville");
 
         when(flightService.getFlightById(1L)).thenReturn(flight);
 
@@ -76,7 +76,7 @@ public class FlightControllerTest {
         Flight flight = new Flight(1L, "FL123", true,
                 LocalDateTime.of(2024, 9, 25, 10, 0),
                 LocalDateTime.of(2024, 9, 25, 12, 0),
-                150L,50L);
+                150L,50L, "seville");
 
 
         when(flightService.createFlight(any(Flight.class))).thenReturn(flight);
@@ -98,7 +98,7 @@ public class FlightControllerTest {
         Flight flight = new Flight(1L, "FL456", false,
                 LocalDateTime.of(2024, 9, 25, 14, 0),
                 LocalDateTime.of(2024, 9, 25, 16, 0),
-                200L,100L);
+                200L,100L,"seville");
 
         when(flightService.updateFlight(eq(id), any(Flight.class))).thenReturn(flight);
 
@@ -116,13 +116,13 @@ public class FlightControllerTest {
         Flight flight1 = new Flight(1, "FL123", true,
                 LocalDateTime.of(2024, 9, 25, 10, 0),
                 LocalDateTime.of(2024, 9, 25, 12, 0),
-                100L,50L);
+                100L,50L,"seville");
         flight1.setReservedSeats(50);
 
         Flight flight2 = new Flight(2, "FL456", true,
                 LocalDateTime.of(2024, 9, 25, 14, 0),
                 LocalDateTime.of(2024, 9, 25, 16, 0),
-                200L,100L);
+                200L,100L, "seville");
         flight2.setReservedSeats(200);
         when(flightService.getAvailableFlights("Madrid")).thenReturn(Arrays.asList(flight1));
 
@@ -152,7 +152,7 @@ public class FlightControllerTest {
         when(flightService.deleteFlight(flightId)).thenReturn(false);
 
         mockMvc.perform(delete("/api/flights/{id}", flightId))
-                .andExpect(status().isOk());
+                .andExpect(status().isNotFound());
 
         verify(flightService, times(1)).deleteFlight(flightId);
     }
