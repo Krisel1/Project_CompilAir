@@ -11,7 +11,8 @@ public class FlightMapper {
                 flight.getDepartureDate(),
                 flight.getReturnDate(),
                 flight.getTotalSeats(),
-                flight.getReservedSeats()
+                flight.getReservedSeats(),
+                flight.getDestination()
         );
     }
 
@@ -24,7 +25,8 @@ public class FlightMapper {
                 flightDTO.getDepartureDate(),
                 flightDTO.getReturnDate(),
                 flightDTO.getTotalSeats(),
-                flightDTO.getReservedSeats()
+                flightDTO.getReservedSeats(),
+                flightDTO.getDestination()
         );
     }
 }
