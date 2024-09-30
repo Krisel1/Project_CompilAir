@@ -16,13 +16,12 @@ public class PaymentService {
     private PaymentRepository paymentRepository;
 
 
-    public Payment createPayment(Long bookingId, double amount, String currency) throws Exception {
+    public Payment createPayment(Long bookingId, double amount, String currency, String cardHolderName, String cardLastFourDigits, String cardType) throws Exception {
         Booking booking = bookingService.getBookingById(bookingId);
 
         if (booking == null) {
             throw new Exception("Booking not found");
         }
-
 
         Payment payment = new Payment();
         payment.setAmount(amount);
@@ -30,10 +29,11 @@ public class PaymentService {
         payment.setPaymentStatus("Pending");
         payment.setPaymentDate(LocalDateTime.now());
         payment.setBooking(booking);
-
+        payment.setCardHolderName(cardHolderName);
+        payment.setCardLastFourDigits(cardLastFourDigits);
+        payment.setCardType(cardType);
 
         payment.setPaymentStatus("Completed");
-
 
         return paymentRepository.save(payment);
     }

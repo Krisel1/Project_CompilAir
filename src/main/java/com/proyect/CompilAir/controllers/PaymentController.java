@@ -18,26 +18,25 @@ import org.springframework.web.bind.annotation.*;
         private PaymentService paymentService;
 
 
-        @PostMapping
-        public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) {
-            try {
+    @PostMapping
+    public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) {
+        try {
+            Payment payment = paymentService.createPayment(
+                    paymentDTO.getBookingId(),
+                    paymentDTO.getAmount(),
+                    paymentDTO.getCurrency(),
+                    paymentDTO.getCardHolderName(),
+                    paymentDTO.getCardLastFourDigits(),
+                    paymentDTO.getCardType()
+            );
 
-                Payment payment = paymentService.createPayment(
-                        paymentDTO.getBookingId(),
-                        paymentDTO.getAmount(),
-                        paymentDTO.getCurrency()
-                );
+            PaymentDTO responseDTO = PaymentMapper.toDTO(payment);
 
-
-                PaymentDTO responseDTO = PaymentMapper.toDTO(payment);
-
-
-                return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
-            } catch (Exception e) {
-
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-            }
+            return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+    }
 
 
         @GetMapping("/{id}")
@@ -51,7 +50,7 @@ import org.springframework.web.bind.annotation.*;
 
                 return ResponseEntity.ok(responseDTO);
             } catch (Exception e) {
-                // En caso de error, retornar una respuesta con el mensaje
+
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
         }

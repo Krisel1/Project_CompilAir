@@ -13,4 +13,11 @@ public class PaymentDTO {
         private String currency;
         private String paymentStatus;
         private LocalDateTime paymentDate;
+        private String cardHolderName;
+        private String cardLastFourDigits;
+        private String cardType;
 }
+
+
+
+
