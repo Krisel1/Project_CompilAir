@@ -8,6 +8,9 @@ public class RegisterRequest {
     String password;
     ERole role;
 
+    public RegisterRequest() {
+    }
+
     public RegisterRequest(String username, String email, String password, ERole role) {
         this.username = username;
         this.email = email;
@@ -20,6 +23,8 @@ public class RegisterRequest {
         this.password = builder.password;
         this.role = builder.role;
     }
+
+
 
     public String getUsername() {
         return username;
