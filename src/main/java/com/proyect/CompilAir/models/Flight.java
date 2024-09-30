@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.Set;
+
 import jakarta.validation.constraints.*;
 
 
@@ -36,33 +38,55 @@ public class Flight {
 
     @Min(value = 1, message = "El número total de asientos debe ser al menos 1")
     @Column(nullable = false)
-    private long totalSeats;
+    private Long totalSeats;
 
-    public Flight(int id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, int totalSeats) {
+
+    @Min(value = 0, message = "Los asientos reservados no pueden ser negativos")
+    @Column(nullable = false)
+    private long reservedSeats = 0;
+
+    @Column(name = "destination")
+    private String destination;
+
+    public Flight() {
+
+    }
+
+    public Flight(long id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, Long totalSeats, long reservedSeats,String destination) {
         this.id = id;
         this.flightName = flightName;
         this.flightStatus = flightStatus;
         this.departureDate = departureDate;
         this.returnDate = returnDate;
         this.totalSeats = totalSeats;
+        this.reservedSeats = reservedSeats;
+        this.destination = destination;
     }
-    public Flight() {
 
+    public long availableSeats() {
+        return totalSeats - reservedSeats;
     }
 
 
 
-//    @OneToMany
- //   @JoinColumn(name = "route_id", nullable = false)
-//    private Route route;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private Set<Route> route;
 
-//    @OneToMany
-//    @JoinColumn(name = "booking_id", nullable = false)
-//    private Booking booking;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private Set<Booking> booking;
 
-//    @OneToMany
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private User user;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private Set<User> user;
 
 
 }

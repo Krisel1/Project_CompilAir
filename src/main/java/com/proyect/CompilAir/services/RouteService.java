@@ -20,7 +20,7 @@ public class RouteService {
     public List<Route> getAllRoutes(){
         return (List<Route>) iRouteRepository.findAll();
     }
-    public Optional<Route> getRoutebyId(Long id){
+    public Optional<Route> getRouteById(Long id){
         Route route = iRouteRepository.findById(id).orElseThrow();
         return Optional.of(route);
     }

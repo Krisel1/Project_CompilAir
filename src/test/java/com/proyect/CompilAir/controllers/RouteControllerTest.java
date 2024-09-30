@@ -11,10 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import java.util.ArrayList;
 import java.util.Optional;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
@@ -87,7 +85,7 @@ class RouteControllerTest {
 
     @Test
     void getRoutesById() throws Exception {
-        when(routeService.getRoutebyId(anyLong())).thenReturn(Optional.ofNullable(route1));
+        when(routeService.getRouteById(anyLong())).thenReturn(Optional.ofNullable(route1));
         mockController
                 .perform(MockMvcRequestBuilders.get("/api/routes/1"))
                 .andExpect(status().isOk())

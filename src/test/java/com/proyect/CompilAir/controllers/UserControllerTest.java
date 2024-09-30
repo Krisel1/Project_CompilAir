@@ -1,10 +1,12 @@
 package com.proyect.CompilAir.controllers;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 08e1576658e0eb9f9fb78c287eaa42521d82eb52
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyect.CompilAir.models.User;
 import com.proyect.CompilAir.services.UserService;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,10 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static com.proyect.CompilAir.models.ERole.USER;
-
 import java.util.ArrayList;
 import java.util.Optional;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;

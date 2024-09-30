@@ -21,8 +21,8 @@ public class RouteController {
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<Route> getRoutebyId(@PathVariable("id") Long id){
-        return routeService.getRoutebyId(id);
+    public Optional<Route> getRouteById(@PathVariable("id") Long id){
+        return routeService.getRouteById(id);
     }
 
     @PostMapping

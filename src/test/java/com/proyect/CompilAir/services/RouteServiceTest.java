@@ -63,7 +63,7 @@ class RouteServiceTest {
         void getRoutebyId() {
             when(iRouteRepository.findById(anyLong())).thenReturn(Optional.of(route2));
 
-            Optional<Route> result = routeService.getRoutebyId(1L);
+            Optional<Route> result = routeService.getRouteById(1L);
 
             assertEquals(2L, result.get().getId());
             assertEquals("SVQ-AGP", result.get().getNameRoute());
