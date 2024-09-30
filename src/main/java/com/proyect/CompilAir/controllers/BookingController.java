@@ -20,19 +20,19 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    @GetMapping(path = "")
+    @GetMapping
     public ArrayList<Booking> getAllBookings(){
         return bookingService.getAllBookings();
     }
 
-    @GetMapping("/booking/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<BookingDTO> getBookingById(@PathVariable Long id) {
         Booking booking = bookingService.getBookingById(id);
         BookingDTO bookingDTO = convertToDto(booking);
         return ResponseEntity.ok(bookingDTO);
     }
 
-    @PostMapping(path ="")
+    @PostMapping
     public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO bookingDTO) {
         Booking booking = convertToEntity(bookingDTO);
         bookingService.createBooking(booking);
