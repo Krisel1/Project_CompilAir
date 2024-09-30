@@ -1,7 +1,6 @@
 package com.proyect.CompilAir.jwt;
 
 import com.proyect.CompilAir.services.JwtService;
-import jakarta.persistence.Entity;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

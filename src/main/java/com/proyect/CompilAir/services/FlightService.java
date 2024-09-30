@@ -1,6 +1,5 @@
 package com.proyect.CompilAir.services;
 
-import com.proyect.CompilAir.controllers.FlightController;
 import com.proyect.CompilAir.excepcions.ResourceNotFoundException;
 import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.repositories.IFlightRepository;

@@ -1,8 +1,7 @@
 package com.proyect.CompilAir.controllers;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proyect.CompilAir.models.ERole;
 import com.proyect.CompilAir.models.User;
 import com.proyect.CompilAir.services.UserService;
 
@@ -46,19 +45,6 @@ class UserControllerTest {
         user1 = new User(1L, USER, "password1", "user1@example.com", "Fran");
         user2 = new User(2L, USER, "password2", "user2@example.com", "Jacky");
     }
-
-   // @Test
-    //void createUser() throws Exception {
-      //  when(userService.createUser(any(User.class))).thenReturn(user1);
-
-        //String userJson = new ObjectMapper().writeValueAsString(user1);
-
-        //mockMvc.perform(post("/api/users")
-         //               .contentType(MediaType.APPLICATION_JSON)
-          //              .content(userJson))
-            //    .andExpect(status().isCreated())
-              //  .andExpect(content().json(userJson));
-    //}
 
 
     @Test
