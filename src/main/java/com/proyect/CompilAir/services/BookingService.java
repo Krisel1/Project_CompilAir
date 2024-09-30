@@ -10,7 +10,6 @@ import java.util.ArrayList;
 @Service
 public class BookingService {
 
-    @Autowired
     private final IBookingRepository iBookingRepository;
 
     public BookingService(IBookingRepository ibookingRepository) {

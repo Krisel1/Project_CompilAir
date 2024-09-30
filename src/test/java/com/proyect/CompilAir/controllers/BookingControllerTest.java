@@ -60,25 +60,43 @@ public class BookingControllerTest {
         verify(bookingService, times(1)).getBookingById(1L);
     }
 
-    @Test
-    void test_Create_Booking() throws Exception {
-        Booking booking = new Booking(1L,"Fran","Cano",43754,"male","hola@hola.es",null,"dni",3454556,"hola",3424,"spain","huelva",null,null);
-        booking.setId(1L);
+  @Test
+  void test_Create_Booking() throws Exception {
+    Booking booking =
+        new Booking(
+            1L,
+            "Fran",
+            "Cano",
+            43754,
+            "male",
+            "hola@hola.es",
+            null,
+            "dni",
+            3454556,
+            "hola",
+            3424,
+            "spain",
+            "huelva",
+            null,
+            null);
+    booking.setId(1L);
 
-        when(bookingService.createBooking(any(Booking.class))).thenReturn(booking);
+    when(bookingService.createBooking(any(Booking.class))).thenReturn(booking);
 
-        mockMvc.perform(post("/api/bookings")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":1,\"name\":Fran\"surname\":Cano\"phone\":43754\"genre\":male\"email\":hola@hola.es\"birthdayDate\":null\"identificationType\":dni\"identificationNumber\":3454556\"address\":hola\"zipCode\":3424\"country\":spain\"city\":huelva\"user\":null\"flight\":null}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1));
+    mockMvc
+        .perform(
+            post("/api/bookings")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                    "{\"id\":1,\"name\":\"Fran\",\"surname\":\"Cano\",\"email\":\"hola@hola.es\",\"city\":\"huelva\",\"country\":\"spain\"}"))
+        .andExpect(status().isCreated())
+        .andExpect(jsonPath("$.id").value(1));
 
-        verify(bookingService, times(1)).createBooking(any(Booking.class));
-    }
+    verify(bookingService, times(1)).createBooking(any(Booking.class));
+  }
 
-
-    @Test
-    public void test_Update_Booking() {
+  @Test
+  public void test_Update_Booking() {
         Long id = 1L;
         Booking booking = new Booking(1L,"Krisel","hola",4968034,"Female","krisel@gmail.com",null,"Dni",87435438,"estepona",41002,"spain","seville",null,null);
         booking.setId(id);
