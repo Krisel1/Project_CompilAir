@@ -49,7 +49,7 @@ public class FlightsDataInitializer {
             flight4.setDepartureDate(LocalDateTime.of(2024, 10, 15, 9, 0));
             flight4.setReturnDate(LocalDateTime.of(2024, 10, 15, 20, 0));
             flight4.setTotalSeats(160L);
-            flight4.setReservedSeats(25L);
+            flight4.setReservedSeats(160L);
             flight4.setDestination("Madrid");
 
             iFlightRepository.save(flight1);
