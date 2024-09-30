@@ -16,7 +16,7 @@ public class PaymentService {
     private PaymentRepository paymentRepository;
 
 
-    public Payment createPayment(Long bookingId, double amount, String currency, String cardHolderName, String cardLastFourDigits, String cardType) throws Exception {
+    public Payment createPayment(Long bookingId, double amount, String currency, String cardHolderName, String cardLastFourDigits, LocalDateTime paymentDate, String cardType) throws Exception {
         Booking booking = bookingService.getBookingById(bookingId);
 
         if (booking == null) {

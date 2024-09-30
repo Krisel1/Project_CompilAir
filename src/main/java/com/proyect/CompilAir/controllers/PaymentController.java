@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
                     paymentDTO.getCurrency(),
                     paymentDTO.getCardHolderName(),
                     paymentDTO.getCardLastFourDigits(),
+                    paymentDTO.getPaymentDate(),
                     paymentDTO.getCardType()
             );
 
