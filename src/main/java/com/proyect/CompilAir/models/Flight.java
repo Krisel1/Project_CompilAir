@@ -10,7 +10,7 @@ import jakarta.validation.constraints.*;
 
 
 @Entity
-@Table(name = "Flight")
+@Table(name = "Flights")
 @Getter
 @Setter
 public class Flight {
