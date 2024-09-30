@@ -4,12 +4,14 @@ import com.proyect.CompilAir.models.Payment;
 
 public class PaymentMapper {
 
-        public static PaymentDTO toDTO(Payment payment) {
-            PaymentDTO dto = new PaymentDTO();
-            dto.setAmount(payment.getAmount());
-            dto.setCurrency(payment.getCurrency());
-            dto.setBookingId(payment.getId());
-            return dto;
-        }
+    public static PaymentDTO toDTO(Payment payment) {
+        PaymentDTO dto = new PaymentDTO();
+        dto.setBookingId(payment.getBooking().getId());
+        dto.setAmount(payment.getAmount());
+        dto.setCurrency(payment.getCurrency());
+        dto.setPaymentStatus(payment.getPaymentStatus());
+        dto.setPaymentDate(payment.getPaymentDate());
+        return dto;
     }
+}
 
