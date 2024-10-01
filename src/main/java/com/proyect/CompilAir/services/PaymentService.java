@@ -43,4 +43,10 @@ public class PaymentService {
         return paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new Exception("Payment not found"));
     }
+
+
+    public Payment updatePayment(long l, Payment payment) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updatePayment'");
+    }
 }
