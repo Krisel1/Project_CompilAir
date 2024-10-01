@@ -11,7 +11,16 @@ public class PaymentMapper {
         dto.setCurrency(payment.getCurrency());
         dto.setPaymentStatus(payment.getPaymentStatus());
         dto.setPaymentDate(payment.getPaymentDate());
+        dto.setCardHolderName(payment.getCardHolderName());
+        dto.setCardLastFourDigits(payment.getCardLastFourDigits());
+        dto.setCardType(payment.getCardType());
         return dto;
+    }
+
+    public static Payment toEntity(PaymentDTO dto) {
+        Payment payment = new Payment();
+
+        return payment;
     }
 }
 

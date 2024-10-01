@@ -28,18 +28,33 @@ public class Payment {
     @Column(nullable = false)
     private LocalDateTime paymentDate;
 
-    public Payment(double amount, Long id, String currency, String paymentStatus, LocalDateTime paymentDate, Booking booking) {
-        this.amount = amount;
+    @Column(nullable = false)
+    private String cardHolderName;
+
+    @Column(nullable = false)
+    private String cardLastFourDigits;
+
+    @Column(nullable = false)
+    private String cardType;
+
+    public Payment(Long id, double amount, String currency, String paymentStatus, LocalDateTime paymentDate, String cardHolderName, String cardLastFourDigits, Booking booking, String cardType) {
         this.id = id;
+        this.amount = amount;
         this.currency = currency;
         this.paymentStatus = paymentStatus;
         this.paymentDate = paymentDate;
+        this.cardHolderName = cardHolderName;
+        this.cardLastFourDigits = cardLastFourDigits;
         this.booking = booking;
+        this.cardType = cardType;
     }
 
     public Payment() {
     }
 
     @OneToOne
+    @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
+
+
 }
