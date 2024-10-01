@@ -1,5 +1,6 @@
 package com.proyect.CompilAir.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class Route {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "flight_id")
+    @JsonBackReference
     private Flight flight;
 
     public Route() {

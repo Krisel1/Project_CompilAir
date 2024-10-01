@@ -1,5 +1,6 @@
 package com.proyect.CompilAir.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +20,8 @@ public class Flight {
     @GeneratedValue ( strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "El número de vuelo no puede estar vacío")
-    @Size(max = 10, message = "El número de vuelo no puede exceder 10 caracteres")
+    @NotBlank(message = "Flight number cannot be empty")
+    @Size(max = 10, message = "The flight number cannot exceed 10 characters")
     @Column(unique = true, nullable = false)
     private String flightName;
 
@@ -28,20 +29,20 @@ public class Flight {
     @Column(nullable = false)
     private boolean flightStatus;
 
-    @Future(message = "La hora de salida debe estar en el futuro")
+    @Future(message = "The departure time must be in the future")
     @Column(nullable = false)
     private LocalDateTime departureDate;
 
-    @Future(message = "La hora de llegada debe estar en el futuro")
+    @Future(message = "The arrival time must be in the future")
     @Column(nullable = false)
     private LocalDateTime returnDate;
 
-    @Min(value = 1, message = "El número total de asientos debe ser al menos 1")
+    @Min(value = 1, message = "The total number of seats must be at least 1")
     @Column(nullable = false)
     private Long totalSeats;
 
 
-    @Min(value = 0, message = "Los asientos reservados no pueden ser negativos")
+    @Min(value = 0, message = "Reserved seats cannot be negative")
     @Column(nullable = false)
     private long reservedSeats = 0;
 
@@ -73,12 +74,14 @@ public class Flight {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Route> route;
 
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Booking> booking;
 
 
@@ -86,6 +89,7 @@ public class Flight {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<User> user;
 
 

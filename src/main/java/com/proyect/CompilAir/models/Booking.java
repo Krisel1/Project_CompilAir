@@ -1,5 +1,6 @@
 package com.proyect.CompilAir.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -33,7 +34,7 @@ public class Booking {
     private String identificationType;
 
     @Column(name ="identificationNumber")
-    private int identificationNumber;
+    private String identificationNumber;
 
     @Column(name ="address")
     private String address;
@@ -50,10 +51,12 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "flight_id", nullable = false)
+    @JsonBackReference
     private Flight flight;
 
 
@@ -121,11 +124,11 @@ public class Booking {
         this.identificationType = identificationType;
     }
 
-    public int getIdentificationNumber() {
+    public String getIdentificationNumber() {
         return identificationNumber;
     }
 
-    public void setIdentificationNumber(int identificationNumber) {
+    public void setIdentificationNumber(String identificationNumber) {
         this.identificationNumber = identificationNumber;
     }
 
@@ -182,7 +185,7 @@ public class Booking {
 
     }
 
-    public Booking(Long id, String name, String surname, int phone, String genre, String email, LocalDate birthdayDate, String identificationType, int identificationNumber, String address, int zipCode, String country, String city, User user, Flight flight) {
+    public Booking(Long id, String name, String surname, int phone, String genre, String email, LocalDate birthdayDate, String identificationType, String identificationNumber, String address, int zipCode, String country, String city, User user, Flight flight) {
         this.id = id;
         this.name = name;
         this.surname = surname;
