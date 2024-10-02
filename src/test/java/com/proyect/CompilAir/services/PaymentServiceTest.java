@@ -21,6 +21,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
+
 class PaymentServiceTest {
 
     @InjectMocks
@@ -35,21 +36,20 @@ class PaymentServiceTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        Object id;
+        //Object id;
         payment = new Payment(1L,34,"ok","amparo",null,"ok","ok",null,null);
     }
     
     @Test
     public void createPayment() {
-
-       Payment newpayment = new Payment();
+        Payment newPayment = new Payment();
         when(paymentRepository.save(any(Payment.class))).thenReturn(payment);
-
-       Payment createdPayment = paymentService.createPayment();
-
-        assertEquals("ok", payment.getPaymentName());
-        verify(paymentRepository, times(1)).save(any(Payment.class));
     
+        Payment createdPayment = paymentService.createPayment(newPayment);
+    
+        assertNotNull(createdPayment);
+        assertEquals("ok", createdPayment.getPaymentName());
+        verify(paymentRepository, times(1)).save(any(Payment.class));
     }
 
     @Test
@@ -60,7 +60,7 @@ class PaymentServiceTest {
         List<Payment> payments = paymentService.getAllPayments();
 
         assertEquals(1, payments.size());
-        assertEquals("1L", payments.get(0).getPaymentName());
+        assertEquals("ok", payments.get(0).getPaymentName());
         verify(paymentRepository, times(1)).findAll();
     }
 
@@ -70,7 +70,10 @@ class PaymentServiceTest {
 
         Payment foundPayment = paymentService.getPaymentById(1L);
 
-        assertEquals("1L", foundPayment.getPaymentName());
+        assertNotNull(foundPayment);
+        assertEquals("ok", foundPayment.getPaymentName());
         verify(paymentRepository, times(1)).findById(eq(1L));
     }
 }
+
+
