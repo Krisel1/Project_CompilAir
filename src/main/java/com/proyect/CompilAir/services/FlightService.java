@@ -27,9 +27,11 @@ public class FlightService {
 
 
         existingFlight.setFlightName(flightDetails.getFlightName());
+        existingFlight.setFlightStatus(flightDetails.isFlightStatus());
         existingFlight.setDepartureDate(flightDetails.getDepartureDate());
         existingFlight.setReturnDate(flightDetails.getReturnDate());
         existingFlight.setTotalSeats(flightDetails.getTotalSeats());
+        existingFlight.setReservedSeats(flightDetails.getReservedSeats());
 
 
         return iFlightRepository.save(existingFlight);
