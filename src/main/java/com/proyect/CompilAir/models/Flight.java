@@ -1,6 +1,7 @@
 package com.proyect.CompilAir.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.proyect.CompilAir.excepcions.ResourceNotFoundException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,11 +30,11 @@ public class Flight {
     @Column(nullable = false)
     private boolean flightStatus;
 
-    @Future(message = "The departure time must be in the future")
+
     @Column(nullable = false)
     private LocalDateTime departureDate;
 
-    @Future(message = "The arrival time must be in the future")
+
     @Column(nullable = false)
     private LocalDateTime returnDate;
 
@@ -66,6 +67,21 @@ public class Flight {
 
     public long availableSeats() {
         return totalSeats - reservedSeats;
+    }
+
+    public boolean reserveSeats(long seatsToReserve) {
+
+        if (this.reservedSeats + seatsToReserve > this.totalSeats) {
+            return false;
+        }
+
+        this.reservedSeats += seatsToReserve;
+
+        if (this.reservedSeats == this.totalSeats) {
+            this.flightStatus = false;
+        }
+
+        return true;
     }
 
 
