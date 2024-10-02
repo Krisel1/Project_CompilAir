@@ -70,17 +70,7 @@ public class FlightService {
         return false;
     }
 
-    public Flight reserveSeats(Long id, int seatsToReserve) {
-        Flight flight = iFlightRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Flight not found with id " + id));
 
-
-        if (!flight.reserveSeats(seatsToReserve)) {
-            throw new IllegalArgumentException("Not enough available seats.");
-        }
-
-        return iFlightRepository.save(flight);
-    }
 
 }
 

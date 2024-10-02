@@ -30,11 +30,11 @@ public class Flight {
     @Column(nullable = false)
     private boolean flightStatus = true;
 
-
+   @Future
     @Column(nullable = false)
     private LocalDateTime departureDate;
 
-
+    @Future
     @Column(nullable = false)
     private LocalDateTime returnDate;
 
@@ -69,20 +69,6 @@ public class Flight {
         return totalSeats - reservedSeats;
     }
 
-    public boolean reserveSeats(long seatsToReserve) {
-
-        if (this.reservedSeats + seatsToReserve > this.totalSeats) {
-            return false;
-        }
-
-        this.reservedSeats += seatsToReserve;
-
-        if (this.reservedSeats == this.totalSeats) {
-            this.flightStatus = false;
-        }
-
-        return true;
-    }
 
 
     @OneToMany(

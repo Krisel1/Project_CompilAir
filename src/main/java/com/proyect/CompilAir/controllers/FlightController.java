@@ -23,7 +23,7 @@ public class FlightController {
     private FlightService flightService;
 
 
-    @PostMapping("/flights")
+    @PostMapping("")
     public ResponseEntity<?> createFlight(@RequestBody FlightDTO flightDTO) {
         Flight flight = FlightMapper.toEntity(flightDTO);
 
@@ -88,19 +88,6 @@ public class FlightController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
         }
     }
-
-    @PutMapping("/flights/{id}/reserve")
-    public ResponseEntity<?> reserveSeats(@PathVariable Long id, @RequestParam int seatsToReserve) {
-        try {
-            Flight updatedFlight = flightService.reserveSeats(id, seatsToReserve);
-
-            FlightDTO updatedFlightDTO = FlightMapper.toDTO(updatedFlight);
-
-            return ResponseEntity.ok(updatedFlightDTO);
-        } catch (IllegalArgumentException e) {
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
 
 
 }
