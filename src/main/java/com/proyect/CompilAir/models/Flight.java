@@ -28,7 +28,7 @@ public class Flight {
 
     @NotNull
     @Column(nullable = false)
-    private boolean flightStatus;
+    private boolean flightStatus = true;
 
 
     @Column(nullable = false)
@@ -83,7 +83,6 @@ public class Flight {
 
         return true;
     }
-
 
 
     @OneToMany(

@@ -17,12 +17,13 @@ public class FlightService {
     IFlightRepository iFlightRepository;
 
 
-
     public Flight createFlight(Flight flight) {
 
         if (flight.getDepartureDate().isBefore(LocalDateTime.now())) {
             flight.setFlightStatus(false);
         }
+
+
         if (flight.getReturnDate().isBefore(LocalDateTime.now())) {
             flight.setFlightStatus(false);
         }

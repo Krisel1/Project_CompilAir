@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -21,14 +23,27 @@ public class FlightController {
     private FlightService flightService;
 
 
-    @PostMapping
-    public ResponseEntity<FlightDTO> createFlight(@RequestBody FlightDTO flightDTO) {
+    @PostMapping("/flights")
+    public ResponseEntity<?> createFlight(@RequestBody FlightDTO flightDTO) {
         Flight flight = FlightMapper.toEntity(flightDTO);
-        Flight savedFlight = flightService.createFlight(flight);
-        FlightDTO savedFlightDTO = FlightMapper.toDTO(savedFlight);
-        return new ResponseEntity<>(savedFlightDTO, HttpStatus.CREATED);
-    }
 
+
+        Flight savedFlight = flightService.createFlight(flight);
+
+
+        FlightDTO savedFlightDTO = FlightMapper.toDTO(savedFlight);
+        String message = "Flight created successfully";
+
+        if (!savedFlight.isFlightStatus()) {
+            message = "Flight created but marked as inactive due to past dates";
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("flight", savedFlightDTO);
+        response.put("message", message);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<FlightDTO> updateFlight(@PathVariable Long id, @RequestBody FlightDTO flightDTO) {
@@ -74,6 +89,18 @@ public class FlightController {
         }
     }
 
+    @PutMapping("/flights/{id}/reserve")
+    public ResponseEntity<?> reserveSeats(@PathVariable Long id, @RequestParam int seatsToReserve) {
+        try {
+            Flight updatedFlight = flightService.reserveSeats(id, seatsToReserve);
+
+            FlightDTO updatedFlightDTO = FlightMapper.toDTO(updatedFlight);
+
+            return ResponseEntity.ok(updatedFlightDTO);
+        } catch (IllegalArgumentException e) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
 
 
 }
