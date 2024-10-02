@@ -2,6 +2,7 @@ package com.proyect.CompilAir.controllers;
 
 import com.proyect.CompilAir.dto.flight.FlightDTO;
 import com.proyect.CompilAir.dto.flight.FlightMapper;
+import com.proyect.CompilAir.excepcions.PastFlightDateException;
 import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,4 +75,11 @@ public class FlightController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
         }
     }
+
+    @ExceptionHandler(PastFlightDateException.class)
+    public ResponseEntity<String> handlePastFlightDateException(PastFlightDateException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
 }
+
