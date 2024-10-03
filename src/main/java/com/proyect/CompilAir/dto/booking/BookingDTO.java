@@ -39,4 +39,6 @@ public class BookingDTO {
         this.country = country;
     }
 
+    public BookingDTO() {
+    }
 }

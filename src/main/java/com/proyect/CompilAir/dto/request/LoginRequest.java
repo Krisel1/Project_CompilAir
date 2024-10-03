@@ -4,6 +4,9 @@ public class LoginRequest {
     String username;
     String password;
 
+    public LoginRequest() {
+    }
+
     public LoginRequest(String username, String password) {
         this.username = username;
         this.password = password;
@@ -13,6 +16,8 @@ public class LoginRequest {
         this.username = builder.username;
         this.password = builder.password;
     }
+
+
 
     public String getPassword() {
         return password;
