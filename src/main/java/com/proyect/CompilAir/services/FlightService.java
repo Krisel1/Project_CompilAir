@@ -22,11 +22,7 @@ public class FlightService {
         if (flight.getDepartureDate().isBefore(LocalDateTime.now())) {
             flight.setFlightStatus(false);
         }
-
-
-        if (flight.getReturnDate().isBefore(LocalDateTime.now())) {
-            flight.setFlightStatus(false);
-        }
+        flight.availableSeats();
 
         return iFlightRepository.save(flight);
     }
@@ -35,13 +31,14 @@ public class FlightService {
         Flight existingFlight = iFlightRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Flight not found with id " + id));
 
-
         existingFlight.setFlightName(flightDetails.getFlightName());
         existingFlight.setDepartureDate(flightDetails.getDepartureDate());
         existingFlight.setReturnDate(flightDetails.getReturnDate());
         existingFlight.setTotalSeats(flightDetails.getTotalSeats());
         existingFlight.setReservedSeats(flightDetails.getReservedSeats());
-        existingFlight.setFlightStatus(flightDetails.isFlightStatus());
+
+
+        existingFlight.availableSeats();
 
         return iFlightRepository.save(existingFlight);
     }
