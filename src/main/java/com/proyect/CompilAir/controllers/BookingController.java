@@ -33,11 +33,18 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO bookingDTO) {
-        Booking booking = convertToEntity(bookingDTO);
+    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
         bookingService.createBooking(booking);
-        BookingDTO responseDto = convertToDto(booking);
+        Booking responseDto = convertToDto(booking);
+        Booking booking = convertToEntity(bookingDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+        //public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
+          //  bookingService.createBooking(booking);
+          //  return ResponseEntity.status(HttpStatus.CREATED).body(booking);
+       // }
+
+
+
     }
 
     @PutMapping(path ="/{id}")
