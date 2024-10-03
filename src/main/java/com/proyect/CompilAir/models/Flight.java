@@ -1,7 +1,7 @@
 package com.proyect.CompilAir.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.proyect.CompilAir.excepcions.ResourceNotFoundException;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +38,7 @@ public class Flight {
     @Column(nullable = false)
     private LocalDateTime returnDate;
 
-    @Min(value = 1, message = "The total number of seats must be at least 1")
+    @Min(value = 150, message = "The total number of seats must be at least 1")
     @Column(nullable = false)
     private Long totalSeats;
 
@@ -66,7 +66,11 @@ public class Flight {
     }
 
     public long availableSeats() {
-        return totalSeats - reservedSeats;
+        long available = totalSeats - reservedSeats;
+        if (available <= 0) {
+            this.flightStatus = false;
+        }
+        return available;
     }
 
 
