@@ -36,7 +36,7 @@ class PaymentServiceTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        //Object id;
+        Object id;
         payment = new Payment(1L,34,"ok","amparo",null,"ok","ok",null,null);
     }
     
@@ -48,7 +48,7 @@ class PaymentServiceTest {
         Payment createdPayment = paymentService.createPayment(newPayment);
     
         assertNotNull(createdPayment);
-        assertEquals("ok", createdPayment.getPaymentName());
+        assertEquals("1L", createdPayment.getPaymentName());
         verify(paymentRepository, times(1)).save(any(Payment.class));
     }
 
@@ -59,7 +59,7 @@ class PaymentServiceTest {
 
         List<Payment> payments = paymentService.getAllPayments();
 
-        assertEquals(1, payments.size());
+        assertEquals(1L, payments.size());
         assertEquals("ok", payments.get(0).getPaymentName());
         verify(paymentRepository, times(1)).findAll();
     }
@@ -71,9 +71,36 @@ class PaymentServiceTest {
         Payment foundPayment = paymentService.getPaymentById(1L);
 
         assertNotNull(foundPayment);
-        assertEquals("ok", foundPayment.getPaymentName());
+        assertEquals("1L", foundPayment.getPaymentName());
         verify(paymentRepository, times(1)).findById(eq(1L));
     }
+
+    //
+
+    @Test
+    public void testDeletePayment_Success() {
+        when(paymentRepository.existsById(eq(1L))).thenReturn(true);
+
+        boolean result = paymentService.deletePayment(1L);
+
+        assertTrue(result);
+        verify(paymentRepository, times(1)).existsById(eq(1L));
+        verify(paymentRepository, times(1)).deleteById(eq(1L));
+    }
+
+    @Test
+    public void deletePayment_NotFound() {
+        when(paymentRepository.existsById(eq(1L))).thenReturn(false);
+
+        boolean result = paymentService.deletePayment(1L);
+
+        assertTrue(!result);
+        verify(paymentRepository, times(1)).existsById(eq(1L));
+        verify(paymentRepository, never()).deleteById(anyLong());
+    }
+
+
+
 }
 
 
