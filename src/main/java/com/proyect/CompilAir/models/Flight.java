@@ -30,7 +30,7 @@ public class Flight {
     @Column(nullable = false)
     private boolean flightStatus = true;
 
-   @Future
+    @Future
     @Column(nullable = false)
     private LocalDateTime departureDate;
 
