@@ -29,14 +29,19 @@ public class BookingDTO {
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\s]+$", message = "The country must only contain letters")
     private String country;
 
+    private Long flight_id;
 
-    public BookingDTO(Long id, String name, String surname, String email, String city, String country) {
+    private Long user_id;
+
+    public BookingDTO(Long id, String name, String surname, String email, String city, String country, Long flight_id, Long user_id) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.city = city;
         this.country = country;
+        this.flight_id = flight_id;
+        this.user_id = user_id;
     }
 
     public BookingDTO() {

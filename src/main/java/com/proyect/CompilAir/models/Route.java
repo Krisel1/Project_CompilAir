@@ -25,7 +25,7 @@ public class Route {
     private String nameRoute;
 
     @ManyToOne
-    @JoinColumn(name = "fight_id", nullable = false)
+    @JoinColumn(name = "flight_id", nullable = false)
     private Flight flight;
 
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

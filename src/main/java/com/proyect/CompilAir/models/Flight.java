@@ -1,7 +1,7 @@
 package com.proyect.CompilAir.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,17 +29,17 @@ public class Flight {
 
     @NotNull
     @Column(nullable = false)
-    private boolean flightStatus;
+    private boolean flightStatus = true;
 
-    @Future(message = "The departure time must be in the future")
+    @Future
     @Column(nullable = false)
     private LocalDateTime departureDate;
 
-    @Future(message = "The arrival time must be in the future")
+    @Future
     @Column(nullable = false)
     private LocalDateTime returnDate;
 
-    @Min(value = 1, message = "The total number of seats must be at least 1")
+    @Min(value = 150, message = "The total number of seats must be at least 1")
     @Column(nullable = false)
     private Long totalSeats;
 
@@ -51,11 +51,9 @@ public class Flight {
     @Column(name = "destination")
     private String destination;
 
-
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Set<Route> route = new HashSet<>();
-
 
     public Flight() {
 
@@ -73,9 +71,11 @@ public class Flight {
     }
 
     public long availableSeats() {
-        return totalSeats - reservedSeats;
+        long available = totalSeats - reservedSeats;
+        if (available <= 0) {
+            this.flightStatus = false;
+        }
+        return available;
     }
-
-
 }
 
