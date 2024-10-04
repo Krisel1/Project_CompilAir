@@ -2,7 +2,6 @@ package com.proyect.CompilAir.controllers;
 
 import com.proyect.CompilAir.dto.booking.BookingDTO;
 import com.proyect.CompilAir.models.Booking;
-import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.models.Route;
 import com.proyect.CompilAir.services.BookingService;
 import jakarta.validation.Valid;
