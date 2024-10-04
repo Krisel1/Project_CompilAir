@@ -1,10 +1,14 @@
 package com.proyect.CompilAir.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.validation.constraints.*;
@@ -49,6 +53,25 @@ public class Flight {
     @Column(name = "destination")
     private String destination;
 
+//    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonManagedReference("flight-route")
+//    private Set<Route> route =new HashSet<>();
+
+
+
+//    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonManagedReference
+//    private Set<Booking> bookings;
+
+//    @OneToMany(mappedBy = "flight")
+//    @JsonManagedReference
+//    private Set<Route> route;
+
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<Route> route = new HashSet<>();
+
+
     public Flight() {
 
     }
@@ -70,27 +93,21 @@ public class Flight {
 
 
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private Set<Route> route;
-
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private Set<Booking> booking;
 
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private Set<User> user;
+
+//    @OneToMany(
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true,
+//            fetch = FetchType.LAZY)
+//    @JsonManagedReference
+//    private Set<Booking> booking;
+//
+//
+//    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+//    @JsonManagedReference
+//    private Set<Route> route;
+//    private Set<User> user;
 
 
 }
