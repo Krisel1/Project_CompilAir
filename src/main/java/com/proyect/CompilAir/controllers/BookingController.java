@@ -3,7 +3,7 @@ package com.proyect.CompilAir.controllers;
 import com.proyect.CompilAir.dto.booking.BookingDTO;
 import com.proyect.CompilAir.models.Booking;
 <<<<<<< HEAD
-import com.proyect.CompilAir.models.Route;
+
 =======
 import com.proyect.CompilAir.models.Flight;
 >>>>>>> e185ac729c7143fd5a2862ced467671ae97faf39
