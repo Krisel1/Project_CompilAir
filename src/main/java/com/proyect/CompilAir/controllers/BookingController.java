@@ -2,7 +2,11 @@ package com.proyect.CompilAir.controllers;
 
 import com.proyect.CompilAir.dto.booking.BookingDTO;
 import com.proyect.CompilAir.models.Booking;
+<<<<<<< HEAD
 import com.proyect.CompilAir.models.Route;
+=======
+import com.proyect.CompilAir.models.Flight;
+>>>>>>> e185ac729c7143fd5a2862ced467671ae97faf39
 import com.proyect.CompilAir.services.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -10,6 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.proyect.CompilAir.dto.booking.BookingMapper.toDTO;
+import static com.proyect.CompilAir.dto.booking.BookingMapper.toEntity;
 
 @RestController
 @CrossOrigin("*")
@@ -29,21 +38,28 @@ public class BookingController {
     @GetMapping("/{id}")
     public ResponseEntity<BookingDTO> getBookingById(@PathVariable Long id) {
         Booking booking = bookingService.getBookingById(id);
-        BookingDTO bookingDTO = convertToDto(booking);
+        BookingDTO bookingDTO = toDTO(booking);
         return ResponseEntity.ok(bookingDTO);
     }
 
     @PostMapping
-    public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO bookingDTO) {
-        Booking booking = convertToEntity(bookingDTO);
-        bookingService.createBooking(booking);
-        BookingDTO responseDto = convertToDto(booking);
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+    public ResponseEntity<?> createBooking(@RequestBody BookingDTO bookingDTO) {
+        Booking booking = BookingMapper.toEntity(bookingDTO);
+
+        Booking savedBooking = bookingService.createBooking(booking);
+        BookingDTO savedBookingDTO = toDTO(savedBooking);
+        String message = "Booking created successfully";
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("booking", savedBookingDTO);
+        response.put("message", message);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping(path ="/{id}")
     public void updateBooking(@Valid @RequestBody BookingDTO bookingDTO, @PathVariable("id") Long id) {
-        Booking booking = convertToEntity(bookingDTO);
+        Booking booking = toEntity(bookingDTO);
         booking.setId(id);
         bookingService.updateBooking(booking);
     }
@@ -66,7 +82,7 @@ public class BookingController {
                 booking.getEmail(),
                 booking.getCity(),
                 booking.getCountry(),
-                booking.getRoute().getId(),
+                booking.getFlight().getId(),
                 booking.getUser().getId()
         );
     }
@@ -79,7 +95,7 @@ public class BookingController {
         booking.setEmail(bookingDTO.getEmail());
         booking.setCity(bookingDTO.getCity());
         booking.setCountry(bookingDTO.getCountry());
-        booking.setRoute(new Route());
+        booking.setFlight(new Flight());
         return booking;
     }
 }

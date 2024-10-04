@@ -23,14 +23,11 @@ public class FlightController {
     private FlightService flightService;
 
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<?> createFlight(@RequestBody FlightDTO flightDTO) {
         Flight flight = FlightMapper.toEntity(flightDTO);
 
-
         Flight savedFlight = flightService.createFlight(flight);
-
-
         FlightDTO savedFlightDTO = FlightMapper.toDTO(savedFlight);
         String message = "Flight created successfully";
 

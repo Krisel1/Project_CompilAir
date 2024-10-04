@@ -59,6 +59,9 @@ public class Booking {
     @JoinColumn(name = "route_id", nullable = false)
     private Route route;
 
+    public Booking(Long id, String name, String surname, String email, String city, String country) {
+    }
+
 
     public Long getId() {
         return id;
