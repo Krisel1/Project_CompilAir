@@ -2,6 +2,7 @@ package com.proyect.CompilAir.controllers;
 
 import com.proyect.CompilAir.dto.booking.BookingDTO;
 import com.proyect.CompilAir.models.Booking;
+import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.services.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -64,7 +65,9 @@ public class BookingController {
                 booking.getSurname(),
                 booking.getEmail(),
                 booking.getCity(),
-                booking.getCountry()
+                booking.getCountry(),
+                booking.getFlight().getId(),
+                booking.getUser().getId()
         );
     }
 
@@ -76,6 +79,7 @@ public class BookingController {
         booking.setEmail(bookingDTO.getEmail());
         booking.setCity(bookingDTO.getCity());
         booking.setCountry(bookingDTO.getCountry());
+        booking.setFlight(new Flight());
         return booking;
     }
 }

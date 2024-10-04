@@ -5,11 +5,12 @@ import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.repositories.IFlightRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-@Component
+@Configuration
 public class FlightsDataInitializer {
 
     @Bean
@@ -21,7 +22,7 @@ public class FlightsDataInitializer {
             flight1.setFlightStatus(true);
             flight1.setDepartureDate(LocalDateTime.of(2025, 10, 1, 8, 0));
             flight1.setReturnDate(LocalDateTime.of(2025, 10, 1, 20, 0));
-            flight1.setTotalSeats(120L);
+            flight1.setTotalSeats(170L);
             flight1.setReservedSeats(1L);
             flight1.setDestination("Roma");
 
@@ -39,7 +40,7 @@ public class FlightsDataInitializer {
             flight3.setFlightStatus(true);
             flight3.setDepartureDate(LocalDateTime.of(2025, 10, 2, 8, 0));
             flight3.setReturnDate(LocalDateTime.of(2025, 10, 2, 20, 0));
-            flight3.setTotalSeats(130L);
+            flight3.setTotalSeats(170L);
             flight3.setReservedSeats(5L);
             flight3.setDestination("Ibiza");
 
@@ -49,7 +50,7 @@ public class FlightsDataInitializer {
             flight4.setDepartureDate(LocalDateTime.of(2025, 10, 15, 9, 0));
             flight4.setReturnDate(LocalDateTime.of(2025, 10, 15, 20, 0));
             flight4.setTotalSeats(160L);
-            flight4.setReservedSeats(160L);
+            flight4.setReservedSeats(1L);
             flight4.setDestination("Madrid");
 
             iFlightRepository.save(flight1);

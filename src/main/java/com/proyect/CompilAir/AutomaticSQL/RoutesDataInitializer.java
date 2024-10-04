@@ -4,10 +4,10 @@ import com.proyect.CompilAir.models.Route;
 import com.proyect.CompilAir.repositories.IRouteRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-@Component
-
+@Configuration
 public class RoutesDataInitializer {
     @Bean
     CommandLineRunner initDatabase(IRouteRepository iRouteRepository) {

@@ -15,8 +15,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin
-@RequestMapping("api/flights")
+@CrossOrigin("*")
+@RequestMapping("/api/flights")
 public class FlightController {
 
     @Autowired
