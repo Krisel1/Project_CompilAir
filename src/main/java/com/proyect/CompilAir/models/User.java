@@ -31,7 +31,7 @@ public class User implements UserDetails {
     private ERole role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference("booking-user")
     private Set<Booking> bookings;
 
     public User(Long id, ERole role, String password, String email, String username) {

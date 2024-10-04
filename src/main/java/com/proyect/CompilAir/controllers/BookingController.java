@@ -1,9 +1,6 @@
 package com.proyect.CompilAir.controllers;
 
 import com.proyect.CompilAir.dto.booking.BookingDTO;
-import com.proyect.CompilAir.dto.booking.BookingMapper;
-import com.proyect.CompilAir.dto.flight.FlightDTO;
-import com.proyect.CompilAir.dto.flight.FlightMapper;
 import com.proyect.CompilAir.models.Booking;
 import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.services.BookingService;
@@ -73,5 +70,28 @@ public class BookingController {
         }
     }
 
-}
+    private BookingDTO convertToDto(Booking booking) {
+        return new BookingDTO(
+                booking.getId(),
+                booking.getName(),
+                booking.getSurname(),
+                booking.getEmail(),
+                booking.getCity(),
+                booking.getCountry(),
+                booking.getFlight().getId(),
+                booking.getUser().getId()
+        );
+    }
 
+    private Booking convertToEntity(BookingDTO bookingDTO) {
+        Booking booking = new Booking();
+        booking.setId(bookingDTO.getId());
+        booking.setName(bookingDTO.getName());
+        booking.setSurname(bookingDTO.getSurname());
+        booking.setEmail(bookingDTO.getEmail());
+        booking.setCity(bookingDTO.getCity());
+        booking.setCountry(bookingDTO.getCountry());
+        booking.setFlight(new Flight());
+        return booking;
+    }
+}
