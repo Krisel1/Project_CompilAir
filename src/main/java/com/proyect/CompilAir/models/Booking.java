@@ -59,6 +59,9 @@ public class Booking {
     @JsonBackReference
     private Flight flight;
 
+    public Booking(Long id, String name, String surname, String email, String city, String country) {
+    }
+
 
     public Long getId() {
         return id;
