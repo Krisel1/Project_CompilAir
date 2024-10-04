@@ -30,8 +30,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private ERole role;
 
-
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference("booking-user")
     private Set<Booking> bookings;

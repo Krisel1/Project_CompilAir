@@ -24,21 +24,11 @@ public class Route {
     @Column(name = "nameRoute")
     private String nameRoute;
 
-//    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JsonManagedReference
-//    private Set<Booking> bookings;
-//
-
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "flight_id", nullable = false)
-//    @JsonIgnoreProperties("route")
-//    private Flight flight;
-
     @ManyToOne
     @JoinColumn(name = "fight_id", nullable = false)
     private Flight flight;
 
-    @OneToMany(mappedBy = "routes", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Booking> bookings;
 
