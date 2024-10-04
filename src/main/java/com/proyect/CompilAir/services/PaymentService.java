@@ -27,7 +27,6 @@ public class PaymentService {
         payment.setAmount(amount);
         payment.setCurrency(currency);
         payment.setPaymentStatus("Pending");
-        payment.setPaymentDate(LocalDateTime.now());
         payment.setBooking(booking);
         payment.setCardHolderName(cardHolderName);
         payment.setCardLastFourDigits(cardLastFourDigits);

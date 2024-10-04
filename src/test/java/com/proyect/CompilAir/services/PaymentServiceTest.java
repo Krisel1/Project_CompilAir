@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7c9bb3a56434e61b26d35db830f6e573f0f630c1
 package com.proyect.CompilAir.services;
 
 import com.proyect.CompilAir.models.Booking;
@@ -83,7 +86,11 @@ public class PaymentServiceTest {
         when(bookingService.getBookingById(1L)).thenReturn(null);
 
         Exception exception = assertThrows(Exception.class, () -> {
+<<<<<<< HEAD
             paymentService.createPayment(1L, 100.00, "USD", "Pedro Perez", "1234", LocalDateTime.now(), "Visa");
+=======
+            paymentService.createPayment(1L, 100.00, "USD", "Frank Vera", "1234", LocalDateTime.now(), "Visa");
+>>>>>>> 7c9bb3a56434e61b26d35db830f6e573f0f630c1
         });
 
         assertEquals("Booking not found", exception.getMessage());
@@ -124,4 +131,8 @@ public class PaymentServiceTest {
 
         verify(paymentRepository, times(1)).findById(1L);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 7c9bb3a56434e61b26d35db830f6e573f0f630c1
