@@ -74,23 +74,18 @@ public class FlightControllerTest {
 
     @Test
     void test_Create_Flight() throws Exception {
-        // Crear un vuelo con un id y los valores necesarios
         Flight flight = new Flight(1L, "FL123", true,
-                LocalDateTime.of(2024, 12, 25, 10, 0),
-                LocalDateTime.of(2024, 12, 25, 12, 0),
-                150L, 50L, "seville");
+                LocalDateTime.of(2024, 9, 25, 10, 0),
+                LocalDateTime.of(2024, 9, 25, 12, 0),
+                150L,50L, "seville");
 
-        // Simular que el servicio devuelve el vuelo con id 1
+
         when(flightService.createFlight(any(Flight.class))).thenReturn(flight);
 
-        // Convertir el objeto Flight a JSON usando ObjectMapper
-        ObjectMapper objectMapper = new ObjectMapper();
-        String flightJson = objectMapper.writeValueAsString(flight);
 
-        // Ejecutar la solicitud POST usando el JSON generado automáticamente
         mockMvc.perform(post("/api/flights")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(flightJson))  // Usar el JSON generado por Jackson
+                        .content("{\"flightName\":\"FL123\",\"flightStatus\":true,\"departureDate\":\"2024-09-25T10:00:00\",\"returnDate\":\"2024-09-25T12:00:00\",\"totalSeats\":150}"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.flightName").value("FL123"));
