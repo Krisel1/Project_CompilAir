@@ -49,6 +49,9 @@ public class Booking {
     @Column(name ="city")
     private String city;
 
+    @Column(name="numberOfPlaces")
+    private int numberOfPlaces;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -59,8 +62,17 @@ public class Booking {
     @JoinColumn(name = "route_id", nullable = false)
     private Route route;
 
-    public Booking(Long id, String name, String surname, String email, String city, String country) {
+    @ManyToOne
+    @JoinColumn(name = "flight_id", nullable = false)
+    private Flight flight;
+
+    public Flight getFlight(){
+        return flight;
     }
+    public void setFlight(Flight flight){
+        this.flight = flight;
+    }
+
 
 
     public Long getId() {
@@ -183,12 +195,18 @@ public class Booking {
         this.route = route;
     }
 
+    public int getNumberOfPlaces() {
+        return numberOfPlaces;
+    }
 
+    public void setNumberOfPlaces(int numberOfPlaces) {
+        this.numberOfPlaces = numberOfPlaces;
+    }
     public Booking(){
 
     }
 
-    public Booking(Long id, String name, String surname, int phone, String genre, String email, LocalDate birthdayDate, String identificationType, String identificationNumber, String address, int zipCode, String country, String city, User user,Route route) {
+    public Booking(Long id, String name, String surname, int phone, String genre, String email, LocalDate birthdayDate, String identificationType, String identificationNumber, String address, int zipCode, String country, String city, User user,Route route,int numberOfPlaces) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -204,7 +222,9 @@ public class Booking {
         this.city = city;
         this.user = user;
         this.route = route;
+        this.numberOfPlaces = numberOfPlaces;
     }
+
 
 }
 

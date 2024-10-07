@@ -61,7 +61,7 @@ public class BookingControllerTest {
         route.setNameRoute("SVQ-HUE");
         route.setId(1L);
 
-        Booking booking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni","3454556","street piruleta",21003,"Spain","seville",user,route);
+        Booking booking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni","3454556","street piruleta",21003,"Spain","seville",user,route,3);
 
         when(bookingService.getBookingById(1L)).thenReturn(booking);
 
@@ -92,7 +92,8 @@ public class BookingControllerTest {
             "spain",
             "huelva",
             null,
-            null);
+            null,
+                3);
     booking.setId(1L);
 
     when(bookingService.createBooking(any(Booking.class))).thenReturn(booking);
@@ -112,7 +113,7 @@ public class BookingControllerTest {
   @Test
   public void test_Update_Booking() {
         Long id = 1L;
-        Booking booking = new Booking(1L,"Krisel","hola",4968034,"Female","krisel@gmail.com",null,"Dni","87435438","estepona",41002,"spain","seville",null,null);
+        Booking booking = new Booking(1L,"Krisel","hola",4968034,"Female","krisel@gmail.com",null,"Dni","87435438","estepona",41002,"spain","seville",null,null,3);
         booking.setId(id);
 
         bookingService.updateBooking(booking);
