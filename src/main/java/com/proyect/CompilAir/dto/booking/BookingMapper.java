@@ -15,7 +15,6 @@ public class BookingMapper {
         );
     }
 
-
     public static Booking toEntity(BookingDTO bookingDTO) {
     return new Booking(
             bookingDTO.getId(),
