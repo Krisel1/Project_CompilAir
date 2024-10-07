@@ -1,87 +1,86 @@
-//package com.proyect.CompilAir.AutomaticSQL;
-//
-//import com.proyect.CompilAir.models.Flight;
-//import com.proyect.CompilAir.models.Route;
-//import com.proyect.CompilAir.repositories.IFlightRepository;
-//import com.proyect.CompilAir.repositories.IRouteRepository;
-//import org.springframework.boot.CommandLineRunner;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.stereotype.Component;
-//
-//import java.time.LocalDateTime;
-//
-//@Component
-//public class RoutesFlightsDataInitializer {
-//
-//    @Bean
-//    CommandLineRunner initDatabase(IFlightRepository iFlightRepository, IRouteRepository iRouteRepository) {
-//        return args -> {
-//
-//            Flight flight = new Flight();
-//            flight.setFlightName("Flight 101");
-//            flight.setFlightStatus(true);
-//            flight.setDepartureDate(LocalDateTime.of(2025, 10, 1, 8, 0));
-//            flight.setReturnDate(LocalDateTime.of(2025, 10, 1, 20, 0));
-//            flight.setTotalSeats(200L);
-//            flight.setReservedSeats(50);
-//            flight.setDestination("Destination X");
-//
-//
-//            Route route1 = new Route();
-//            route1.setNameRoute("SVQ-IBZ");
-//            route1.setFlight(flight);
-//
-//            Route route2 = new Route();
-//            route2.setNameRoute("MAD-BCN");
-//            route2.setFlight(flight);
-//
-//            Route route3 = new Route();
-//            route3.setNameRoute("AGP-LPA");
-//            route3.setFlight(flight);
-//
-//            Route route4 = new Route();
-//            route4.setNameRoute("BIO-PMI");
-//            route4.setFlight(flight);
-//
-//            Route route5 = new Route();
-//            route5.setNameRoute("VLC-SCQ");
-//            route5.setFlight(flight);
-//
-//            Route route6 = new Route();
-//            route6.setNameRoute("MAD-SVQ");
-//            route6.setFlight(flight);
-//
-//            Route route7 = new Route();
-//            route7.setNameRoute("BCN-IBZ");
-//            route7.setFlight(flight);
-//
-//            Route route8 = new Route();
-//            route8.setNameRoute("AGP-MAD");
-//            route8.setFlight(flight);
-//
-//
-//            flight.getRoute().add(route1);
-//            flight.getRoute().add(route2);
-//            flight.getRoute().add(route3);
-//            flight.getRoute().add(route4);
-//            flight.getRoute().add(route5);
-//            flight.getRoute().add(route6);
-//            flight.getRoute().add(route7);
-//            flight.getRoute().add(route8);
-//
-//
-//            iRouteRepository.save(route1);
-//            iRouteRepository.save(route2);
-//            iRouteRepository.save(route3);
-//            iRouteRepository.save(route4);
-//            iRouteRepository.save(route5);
-//            iRouteRepository.save(route6);
-//            iRouteRepository.save(route7);
-//            iRouteRepository.save(route8);
-//
-//            iFlightRepository.save(flight);
-//
-//            System.out.println("Flight and routes automatically generated in database");
-//        };
-//    }
-//}
+package com.proyect.CompilAir.AutomaticSQL;
+
+import com.proyect.CompilAir.models.Flight;
+import com.proyect.CompilAir.models.Route;
+import com.proyect.CompilAir.repositories.IFlightRepository;
+import com.proyect.CompilAir.repositories.IRouteRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+
+@Component
+public class RoutesFlightsDataInitializer {
+
+    @Bean
+    CommandLineRunner initDatabase(IFlightRepository iFlightRepository, IRouteRepository iRouteRepository) {
+        return args -> {
+
+            Route route1 = new Route("MAD-AST", 1L);
+            Route route2 = new Route("MAD-BCN", 2L);
+            Route route3 = new Route("SVQ-IBZ",3L);
+
+            route1 = iRouteRepository.save(route1);
+            route2 = iRouteRepository.save(route2);
+            route3 = iRouteRepository.save(route3);
+
+            Flight flight1 = new Flight();
+            flight1.setFlightName("A001");
+            flight1.setRoute(route1);
+            flight1.setFlightStatus(true);
+            flight1.setDepartureDate(LocalDateTime.of(2025, 10, 1, 8, 0));
+            flight1.setReturnDate(LocalDateTime.of(2025, 10, 1, 20, 0));
+            flight1.setTotalSeats(200L);
+            flight1.setReservedSeats(50);
+            flight1.setDestination("Gijon");
+
+            Flight flight2 = new Flight();
+            flight2.setFlightName("M002");
+            flight2.setRoute(route1);
+            flight2.setFlightStatus(true);
+            flight2.setDepartureDate(LocalDateTime.of(2025, 10, 2, 9, 0));
+            flight2.setReturnDate(LocalDateTime.of(2025, 10, 2, 21, 0));
+            flight2.setTotalSeats(200L);
+            flight2.setReservedSeats(50);
+            flight2.setDestination("Madrid");
+
+            Flight flight3 = new Flight();
+            flight3.setFlightName("M003");
+            flight3.setRoute(route2);
+            flight3.setFlightStatus(true);
+            flight3.setDepartureDate(LocalDateTime.of(2025, 10, 2, 9, 0));
+            flight3.setReturnDate(LocalDateTime.of(2025, 10, 2, 21, 0));
+            flight3.setTotalSeats(200L);
+            flight3.setReservedSeats(50);
+            flight3.setDestination("Madrid");
+
+            Flight flight4 = new Flight();
+            flight4.setFlightName("B004");
+            flight4.setRoute(route2);
+            flight4.setFlightStatus(true);
+            flight4.setDepartureDate(LocalDateTime.of(2025, 10, 2, 9, 0));
+            flight4.setReturnDate(LocalDateTime.of(2025, 10, 2, 21, 0));
+            flight4.setTotalSeats(200L);
+            flight4.setReservedSeats(50);
+            flight4.setDestination("Barcelona");
+
+            flight1 = iFlightRepository.save(flight1);
+            flight2 = iFlightRepository.save(flight2);
+            flight3 = iFlightRepository.save(flight3);
+            flight4 = iFlightRepository.save(flight4);
+
+            // Add the flights to their respective routes
+            route1.getFlights().add(flight1);
+            route1.getFlights().add(flight2);  // Add flight2 to route1 only if applicable
+
+            route2.getFlights().add(flight3);
+
+            iRouteRepository.save(route1);
+            iRouteRepository.save(route2);
+
+            System.out.println("Flights and routes have been automatically generated and saved in the database.");
+        };
+    }
+}
+
