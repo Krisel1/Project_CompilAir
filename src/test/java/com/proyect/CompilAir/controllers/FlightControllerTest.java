@@ -1,7 +1,7 @@
 package com.proyect.CompilAir.controllers;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.services.FlightService;
 import org.junit.jupiter.api.BeforeEach;
