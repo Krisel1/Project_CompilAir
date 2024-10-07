@@ -55,7 +55,7 @@ public class Booking {
     @JsonBackReference("booking-user")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "route_id", nullable = false)
     private Route route;
 
