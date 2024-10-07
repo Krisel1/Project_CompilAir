@@ -2,6 +2,9 @@ package com.proyect.CompilAir.controllers;
 
 import com.proyect.CompilAir.dto.booking.BookingDTO;
 import com.proyect.CompilAir.models.Booking;
+import com.proyect.CompilAir.models.Flight;
+import com.proyect.CompilAir.models.Route;
+import com.proyect.CompilAir.models.User;
 import com.proyect.CompilAir.services.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -60,11 +63,20 @@ public class BookingController {
     private BookingDTO convertToDto(Booking booking) {
         return new BookingDTO(
                 booking.getId(),
+                booking.getUser().getId(),
                 booking.getName(),
                 booking.getSurname(),
+                booking.getPhone(),
                 booking.getEmail(),
+                booking.getBirthdayDate(),
+                booking.getIdentificationNumber(),
+                booking.getGenre(),
+                booking.getIdentificationType(),
+                booking.getAddress(),
+                booking.getZipCode(),
+                booking.getCountry(),
                 booking.getCity(),
-                booking.getCountry()
+                booking.getRoute().getId()
         );
     }
 
@@ -73,9 +85,26 @@ public class BookingController {
         booking.setId(bookingDTO.getId());
         booking.setName(bookingDTO.getName());
         booking.setSurname(bookingDTO.getSurname());
+        booking.setPhone(bookingDTO.getPhone());
         booking.setEmail(bookingDTO.getEmail());
-        booking.setCity(bookingDTO.getCity());
+        booking.setBirthdayDate(bookingDTO.getBirthdayDate());
+        booking.setIdentificationNumber(bookingDTO.getIdentificationNumber());
+        booking.setGenre(bookingDTO.getGenre());
+        booking.setIdentificationType(bookingDTO.getIdentificationType());
+        booking.setAddress(bookingDTO.getAddress());
+        booking.setZipCode(bookingDTO.getZipCode());
         booking.setCountry(bookingDTO.getCountry());
+        booking.setCity(bookingDTO.getCity());
+
+
+        Route route = new Route();
+        route.setId(bookingDTO.getRouteId());
+        booking.setRoute(route);
+
+        User user = new User();
+        user.setId(bookingDTO.getUserId());
+        booking.setUser(user);
+
         return booking;
     }
 }
