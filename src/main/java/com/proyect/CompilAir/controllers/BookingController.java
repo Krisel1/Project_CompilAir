@@ -3,11 +3,6 @@ package com.proyect.CompilAir.controllers;
 import com.proyect.CompilAir.dto.booking.BookingDTO;
 import com.proyect.CompilAir.dto.booking.BookingMapper;
 import com.proyect.CompilAir.models.Booking;
-<<<<<<< HEAD
-
-=======
-import com.proyect.CompilAir.models.Flight;
->>>>>>> e185ac729c7143fd5a2862ced467671ae97faf39
 import com.proyect.CompilAir.services.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
