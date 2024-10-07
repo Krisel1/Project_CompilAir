@@ -1,6 +1,5 @@
 package com.proyect.CompilAir.repositories;
 
-import com.proyect.CompilAir.dto.request.RegisterRequest;
 import com.proyect.CompilAir.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

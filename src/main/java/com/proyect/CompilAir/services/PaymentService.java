@@ -45,19 +45,19 @@ public class PaymentService {
 
 
     public Payment updatePayment(long l, Payment payment) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'updatePayment'");
     }
 
 
     public Payment createPayment() {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'createPayment'");
     }
 
 
     public boolean deletePayment(long l) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'deletePayment'");
     }
 }
