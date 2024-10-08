@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-    @RequestMapping("/api/payments")
+@RequestMapping("/api/payments")
     public class PaymentController {
 
         @Autowired
         private PaymentService paymentService;
 
 
-    @PostMapping
+@PostMapping
     public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) {
         try {
             Payment payment = paymentService.createPayment(
@@ -40,16 +40,16 @@ import org.springframework.web.bind.annotation.*;
     }
 
 
-        @GetMapping("/{id}")
-        public ResponseEntity<PaymentDTO> getPayment(@PathVariable Long id) {
-            try {
+@GetMapping("/{id}")
+    public ResponseEntity<PaymentDTO> getPayment(@PathVariable Long id) {
+        try {
 
-                Payment payment = paymentService.getPaymentById(id);
+        Payment payment = paymentService.getPaymentById(id);
 
 
-                PaymentDTO responseDTO = PaymentMapper.toDTO(payment);
+        PaymentDTO responseDTO = PaymentMapper.toDTO(payment);
 
-                return ResponseEntity.ok(responseDTO);
+        return ResponseEntity.ok(responseDTO);
             } catch (Exception e) {
 
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

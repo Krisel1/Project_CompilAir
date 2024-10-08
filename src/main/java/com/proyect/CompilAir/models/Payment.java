@@ -57,12 +57,20 @@ public class Payment {
     private Booking booking;
 
     public Object getPaymentName() {
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> aa049d3244009f9c650a843e2a9000e8e75fc721
         throw new UnsupportedOperationException("Unimplemented method 'getPaymentName'");
     }
 
     public void setPaymentDate(String string) {
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> aa049d3244009f9c650a843e2a9000e8e75fc721
         throw new UnsupportedOperationException("Unimplemented method 'setPaymentDate'");
     }
 
