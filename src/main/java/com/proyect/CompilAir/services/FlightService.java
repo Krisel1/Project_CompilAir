@@ -4,8 +4,8 @@ import com.proyect.CompilAir.excepcions.ResourceNotFoundException;
 import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.repositories.IFlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +16,15 @@ public class FlightService {
     @Autowired
     IFlightRepository iFlightRepository;
 
+    @Scheduled(cron = "0 0 0 * * ?")
+    public void removeExpiredOrFullFlights() {
+        List<Flight> flights = iFlightRepository.findAll();
+        for (Flight flight : flights) {
+            if (flight.getDepartureDate().isBefore(LocalDateTime.now()) || flight.availableSeats() <= 0) {
+                iFlightRepository.delete(flight);
+            }
+        }
+    }
 
     public Flight createFlight(Flight flight) {
 

@@ -73,11 +73,8 @@ public class Flight {
     }
 
     public long availableSeats() {
-        long available = totalSeats - reservedSeats;
-        if (available <= 0) {
-            this.flightStatus = false;
-        }
-        return available;
+        return totalSeats - reservedSeats;
     }
+
 }
 
