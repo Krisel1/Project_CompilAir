@@ -1,13 +1,10 @@
 package com.proyect.CompilAir.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 import jakarta.validation.constraints.*;
 
@@ -51,9 +48,10 @@ public class Flight {
     @Column(name = "destination")
     private String destination;
 
-    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne
+    @JoinColumn(name = "route_id", nullable = false)
     @JsonIgnore
-    private Set<Route> route = new HashSet<>();
+    private Route route;
 
     public Flight() {
 
@@ -77,5 +75,7 @@ public class Flight {
         }
         return available;
     }
+
+
 }
 

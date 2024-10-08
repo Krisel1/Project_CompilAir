@@ -1,6 +1,7 @@
 package com.proyect.CompilAir.controllers;
 
 
+import com.proyect.CompilAir.dto.flight.FlightDTO;
 import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.services.FlightService;
 import org.junit.jupiter.api.BeforeEach;
@@ -86,8 +87,8 @@ public class FlightControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"flightName\":\"FL123\",\"flightStatus\":true,\"departureDate\":\"2024-09-25T10:00:00\",\"returnDate\":\"2024-09-25T12:00:00\",\"totalSeats\":150}"))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.flightName").value("FL123"));
+                .andExpect(jsonPath("$.flight.id").value(1))
+                .andExpect(jsonPath("$.flight.flightName").value("FL123"));
 
         verify(flightService, times(1)).createFlight(any(Flight.class));
     }
@@ -95,18 +96,29 @@ public class FlightControllerTest {
     @Test
     public void test_Update_Flight() throws Exception {
         Long id = 1L;
-        Flight flight = new Flight(1L, "FL456", false,
+        Flight flight = new Flight(id, "FL456", false,
                 LocalDateTime.of(2024, 9, 25, 14, 0),
                 LocalDateTime.of(2024, 9, 25, 16, 0),
                 200L,100L,"seville");
+        FlightDTO flightDTO = new FlightDTO(
+                id,
+                "FL456",
+                false,
+                LocalDateTime.of(2024, 9, 25, 14, 0),
+                LocalDateTime.of(2024, 9, 25, 16, 0),
+                200L,
+                100L,
+                "seville"
+        );
 
         when(flightService.updateFlight(eq(id), any(Flight.class))).thenReturn(flight);
 
         mockMvc.perform(put("/api/flights/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"flightName\":\"FL456\",\"flightStatus\":false,\"departureDate\":\"2024-09-25T14:00:00\",\"returnDate\":\"2024-09-25T16:00:00\",\"totalSeats\":200}"))
-                .andExpect(status().isOk());
-
+                        .content("{\"id\":" + id + ",\"flightName\":\"FL456\",\"flightStatus\":false,\"departureDate\":\"2024-09-25T14:00:00\",\"returnDate\":\"2024-09-25T16:00:00\",\"totalSeats\":200,\"reservedSeats\":100,\"destination\":\"seville\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.flightName").value("FL456"))
+                .andExpect(jsonPath("$.id").value(id));
 
         verify(flightService, times(1)).updateFlight(eq(id), any(Flight.class));
     }
@@ -157,3 +169,4 @@ public class FlightControllerTest {
         verify(flightService, times(1)).deleteFlight(flightId);
     }
 }
+
