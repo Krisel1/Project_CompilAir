@@ -9,13 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.attribute.standard.Destination;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin
-@RequestMapping("api/flights")
+@CrossOrigin("*")
+@RequestMapping("/api/flights")
 public class FlightController {
 
     @Autowired
@@ -23,13 +24,23 @@ public class FlightController {
 
 
     @PostMapping
-    public ResponseEntity<FlightDTO> createFlight(@RequestBody FlightDTO flightDTO) {
+    public ResponseEntity<?> createFlight(@RequestBody FlightDTO flightDTO) {
         Flight flight = FlightMapper.toEntity(flightDTO);
+
         Flight savedFlight = flightService.createFlight(flight);
         FlightDTO savedFlightDTO = FlightMapper.toDTO(savedFlight);
-        return new ResponseEntity<>(savedFlightDTO, HttpStatus.CREATED);
-    }
+        String message = "Flight created successfully";
 
+        if (!savedFlight.isFlightStatus()) {
+            message = "Flight created but marked as inactive due to past dates";
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("flight", savedFlightDTO);
+        response.put("message", message);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<FlightDTO> updateFlight(@PathVariable Long id, @RequestBody FlightDTO flightDTO) {
@@ -74,4 +85,7 @@ public class FlightController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
         }
     }
+
+
 }
+

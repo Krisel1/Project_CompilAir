@@ -47,7 +47,7 @@ public class BookingControllerTest {
     @Test
     void Test_Get_Booking_By_Id() throws Exception {
 
-        Booking booking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni",3454556,"street piruleta",21003,"Spain","seville",null,null);
+        Booking booking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni","3454556","street piruleta",21003,"Spain","seville",null,null);
 
         when(bookingService.getBookingById(1L)).thenReturn(booking);
 
@@ -72,7 +72,7 @@ public class BookingControllerTest {
             "hola@hola.es",
             null,
             "dni",
-            3454556,
+            "3454556",
             "hola",
             3424,
             "spain",
@@ -98,7 +98,7 @@ public class BookingControllerTest {
   @Test
   public void test_Update_Booking() {
         Long id = 1L;
-        Booking booking = new Booking(1L,"Krisel","hola",4968034,"Female","krisel@gmail.com",null,"Dni",87435438,"estepona",41002,"spain","seville",null,null);
+        Booking booking = new Booking(1L,"Krisel","hola",4968034,"Female","krisel@gmail.com",null,"Dni","87435438","estepona",41002,"spain","seville",null,null);
         booking.setId(id);
 
         bookingService.updateBooking(booking);

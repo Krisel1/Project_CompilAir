@@ -2,6 +2,8 @@ package com.proyect.CompilAir.controllers;
 
 import com.proyect.CompilAir.models.Route;
 import com.proyect.CompilAir.services.RouteService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +23,11 @@ public class RouteController {
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<Route> getRouteById(@PathVariable("id") Long id){
-        return routeService.getRouteById(id);
-    }
+    public ResponseEntity<Route> getRouteById(@PathVariable("id") Long id){
+        Optional<Route> route = routeService.getRouteById(id);
+        return route.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+            }
 
     @PostMapping
     public Route createRoute(@RequestBody Route newRoute){

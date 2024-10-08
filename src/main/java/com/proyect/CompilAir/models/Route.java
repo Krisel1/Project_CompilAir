@@ -1,8 +1,13 @@
 package com.proyect.CompilAir.models;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 
 @Entity
@@ -18,9 +23,13 @@ public class Route {
     @Column(name = "nameRoute")
     private String nameRoute;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "flight_id")
+    @ManyToOne
+    @JoinColumn(name = "flight_id", nullable = false)
     private Flight flight;
+
+    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Booking> bookings;
 
     public Route() {
     }

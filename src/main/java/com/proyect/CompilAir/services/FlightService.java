@@ -6,6 +6,7 @@ import com.proyect.CompilAir.repositories.IFlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,8 +17,13 @@ public class FlightService {
     IFlightRepository iFlightRepository;
 
 
-
     public Flight createFlight(Flight flight) {
+
+        if (flight.getDepartureDate().isBefore(LocalDateTime.now())) {
+            flight.setFlightStatus(false);
+        }
+        flight.availableSeats();
+
         return iFlightRepository.save(flight);
     }
 
@@ -25,12 +31,14 @@ public class FlightService {
         Flight existingFlight = iFlightRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Flight not found with id " + id));
 
-
         existingFlight.setFlightName(flightDetails.getFlightName());
         existingFlight.setDepartureDate(flightDetails.getDepartureDate());
         existingFlight.setReturnDate(flightDetails.getReturnDate());
         existingFlight.setTotalSeats(flightDetails.getTotalSeats());
+        existingFlight.setReservedSeats(flightDetails.getReservedSeats());
 
+
+        existingFlight.availableSeats();
 
         return iFlightRepository.save(existingFlight);
     }
@@ -58,6 +66,8 @@ public class FlightService {
         }
         return false;
     }
+
+
 
 }
 
