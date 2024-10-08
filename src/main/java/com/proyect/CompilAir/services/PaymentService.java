@@ -47,31 +47,17 @@ public class PaymentService {
 
 
     public Payment updatePayment(long l, Payment payment) {
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> aa049d3244009f9c650a843e2a9000e8e75fc721
         throw new UnsupportedOperationException("Unimplemented method 'updatePayment'");
     }
 
 
     public Payment createPayment() {
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> aa049d3244009f9c650a843e2a9000e8e75fc721
         throw new UnsupportedOperationException("Unimplemented method 'createPayment'");
     }
 
-
     public boolean deletePayment(long l) {
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> aa049d3244009f9c650a843e2a9000e8e75fc721
         throw new UnsupportedOperationException("Unimplemented method 'deletePayment'");
     }
 }
