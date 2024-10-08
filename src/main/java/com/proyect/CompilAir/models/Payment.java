@@ -57,12 +57,12 @@ public class Payment {
     private Booking booking;
 
     public Object getPaymentName() {
-        // TODO Auto-generated method stub
+
         throw new UnsupportedOperationException("Unimplemented method 'getPaymentName'");
     }
 
     public void setPaymentDate(String string) {
-        // TODO Auto-generated method stub
+
         throw new UnsupportedOperationException("Unimplemented method 'setPaymentDate'");
     }
 

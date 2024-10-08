@@ -4,9 +4,11 @@ import com.proyect.CompilAir.models.Booking;
 import com.proyect.CompilAir.models.Payment;
 import com.proyect.CompilAir.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 public class PaymentService {
 
     @Autowired
@@ -45,19 +47,19 @@ public class PaymentService {
 
 
     public Payment updatePayment(long l, Payment payment) {
-        // TODO Auto-generated method stub
+
         throw new UnsupportedOperationException("Unimplemented method 'updatePayment'");
     }
 
 
     public Payment createPayment() {
-        // TODO Auto-generated method stub
+
         throw new UnsupportedOperationException("Unimplemented method 'createPayment'");
     }
 
 
     public boolean deletePayment(long l) {
-        // TODO Auto-generated method stub
+
         throw new UnsupportedOperationException("Unimplemented method 'deletePayment'");
     }
 }

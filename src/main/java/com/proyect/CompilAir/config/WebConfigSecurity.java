@@ -36,7 +36,6 @@ public class WebConfigSecurity {
                                 .requestMatchers("/api/test/all").permitAll()
                                 .requestMatchers("/api/test/user").hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers("/api/test").hasAuthority("ADMIN")
-                                .requestMatchers("/api/payments").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/api/routes").hasAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE,"/api/routes/{id}").hasAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.PUT,"/api/routes/{id}").hasAuthority("ADMIN")
@@ -53,6 +52,7 @@ public class WebConfigSecurity {
                                 .requestMatchers(HttpMethod.GET,"/api/bookings").hasAuthority("ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/api/users/{id}").hasAuthority("ADMIN")
                                 .requestMatchers("/api/users/**").hasAuthority("ADMIN")
+                                .requestMatchers("/api/payments").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager ->
