@@ -12,8 +12,8 @@ import java.util.ArrayList;
 @Service
 public class BookingService {
 
-    private final IBookingRepository iBookingRepository;
-    private final FlightService flightService;
+    private IBookingRepository iBookingRepository;
+    private FlightService flightService;
 
     public BookingService(IBookingRepository ibookingRepository, FlightService flightService) {
         this.iBookingRepository = ibookingRepository;
@@ -31,7 +31,11 @@ public class BookingService {
     }
 
     public Booking createBooking(Booking newBooking){
-        Flight flight = newBooking.getFlight();
+        if(newBooking.getFlight() == null) {
+            throw new IllegalArgumentException("Flight cannot be null.");
+        }
+
+        Flight flight = flightService.getFlightById(newBooking.getFlight().getId());
         int requestedSeats = newBooking.getNumberOfPlaces();
 
         if(flight.availableSeats() >= requestedSeats) {
@@ -56,4 +60,7 @@ public class BookingService {
             return "Booking not Found";
         }
     }
+    public BookingService() {
+    }
+
 }

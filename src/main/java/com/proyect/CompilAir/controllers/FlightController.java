@@ -45,7 +45,7 @@ public class FlightController {
     @PutMapping("/{id}")
     public ResponseEntity<FlightDTO> updateFlight(@PathVariable Long id, @RequestBody FlightDTO flightDTO) {
         Flight flight = FlightMapper.toEntity(flightDTO);
-        Flight updatedFlight = flightService.updateFlight();
+        Flight updatedFlight = flightService.updateFlight(id, flight);
         FlightDTO updatedFlightDTO = FlightMapper.toDTO(updatedFlight);
         return ResponseEntity.ok(updatedFlightDTO);
     }

@@ -206,7 +206,7 @@ public class Booking {
 
     }
 
-    public Booking(Long id, String name, String surname, int phone, String genre, String email, LocalDate birthdayDate, String identificationType, String identificationNumber, String address, int zipCode, String country, String city, User user,Route route,int numberOfPlaces) {
+    public Booking(Long id, String name, String surname, int phone, String genre, String email, LocalDate birthdayDate, String identificationType, String identificationNumber, String address, int zipCode, String country, String city, User user,Route route,int numberOfPlaces,Flight flight) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -223,6 +223,7 @@ public class Booking {
         this.user = user;
         this.route = route;
         this.numberOfPlaces = numberOfPlaces;
+        this.flight = flight;
     }
 
 

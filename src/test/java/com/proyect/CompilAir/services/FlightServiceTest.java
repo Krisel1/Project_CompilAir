@@ -1,4 +1,4 @@
-/*package com.proyect.CompilAir.services;
+package com.proyect.CompilAir.services;
 
 import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.repositories.IFlightRepository;
@@ -17,6 +17,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 class FlightServiceTest {
 
@@ -50,7 +51,7 @@ class FlightServiceTest {
         when(flightRepository.findById(eq(1L))).thenReturn(Optional.of(flight));
         when(flightRepository.save(any(Flight.class))).thenReturn(flight);
 
-        Flight updatedFlight = flightService.updateFlight(flight);
+        Flight updatedFlight = flightService.updateFlight(flight.getId(),flight);
 
         assertEquals("FL123", updatedFlight.getFlightName());
         verify(flightRepository, times(1)).findById(eq(1L));
@@ -102,5 +103,3 @@ class FlightServiceTest {
     }
 
 }
-
- */
