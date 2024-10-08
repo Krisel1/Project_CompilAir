@@ -1,6 +1,7 @@
 package com.proyect.CompilAir.controllers;
 
 
+
 import com.proyect.CompilAir.models.Flight;
 import com.proyect.CompilAir.services.FlightService;
 import org.junit.jupiter.api.BeforeEach;
@@ -73,25 +74,41 @@ public class FlightControllerTest {
 
     @Test
     void test_Create_Flight() throws Exception {
-        Flight flight = new Flight(1L, "FL123", true,
-                LocalDateTime.of(2024, 9, 25, 10, 0),
-                LocalDateTime.of(2024, 9, 25, 12, 0),
-                150L,50L, "seville");
+
+        Flight flight = new Flight(
+                1L,
+                "Flight A",
+                true,
+                LocalDateTime.of(2024, 10, 1, 10, 0),
+                LocalDateTime.of(2024, 10, 10, 10, 0),
+                100L,
+                50L,
+                "New York"
+        );
+
+        flight.setId(1L);
 
 
         when(flightService.createFlight(any(Flight.class))).thenReturn(flight);
 
 
-        mockMvc.perform(post("/api/flights")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"flightName\":\"FL123\",\"flightStatus\":true,\"departureDate\":\"2024-09-25T10:00:00\",\"returnDate\":\"2024-09-25T12:00:00\",\"totalSeats\":150}"))
+        mockMvc.perform(
+                        post("/api/flights")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(
+                                        "{\"id\":1,\"flightName\":\"Flight A\",\"flightStatus\":true,\"departureDate\":\"2024-10-01T10:00:00\",\"returnDate\":\"2024-10-10T10:00:00\",\"totalSeats\":100,\"reservedSeats\":50,\"destination\":\"New York\"}"
+                                ))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.flightName").value("FL123"));
+                .andExpect(jsonPath("$.flight.id").value(1))
+                .andExpect(jsonPath("$.flight.flightName").value("Flight A"))
+                .andExpect(jsonPath("$.flight.flightStatus").value(true))
+                .andExpect(jsonPath("$.flight.totalSeats").value(100))
+                .andExpect(jsonPath("$.flight.reservedSeats").value(50))
+                .andExpect(jsonPath("$.flight.destination").value("New York"));
+
 
         verify(flightService, times(1)).createFlight(any(Flight.class));
     }
-
     @Test
     public void test_Update_Flight() throws Exception {
         Long id = 1L;

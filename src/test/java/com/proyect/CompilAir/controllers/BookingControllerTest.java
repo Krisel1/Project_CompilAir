@@ -1,6 +1,8 @@
 package com.proyect.CompilAir.controllers;
 
 import com.proyect.CompilAir.models.Booking;
+import com.proyect.CompilAir.models.Route;
+import com.proyect.CompilAir.models.User;
 import com.proyect.CompilAir.services.BookingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static com.proyect.CompilAir.models.ERole.ADMIN;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,7 +50,18 @@ public class BookingControllerTest {
     @Test
     void Test_Get_Booking_By_Id() throws Exception {
 
-        Booking booking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni","3454556","street piruleta",21003,"Spain","seville",null,null);
+        User user = new User(1L, ADMIN, "hola", "hola", "hola");
+        user.setId(1L);
+        user.setRole(ADMIN);
+        user.setPassword("hola");
+        user.setEmail("hola");
+        user.setUsername("hola");
+
+        Route route= new Route("SVQ-HUE",1L);
+        route.setNameRoute("SVQ-HUE");
+        route.setId(1L);
+
+        Booking booking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni","3454556","street piruleta",21003,"Spain","seville",user,route);
 
         when(bookingService.getBookingById(1L)).thenReturn(booking);
 
