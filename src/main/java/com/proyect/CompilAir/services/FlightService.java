@@ -20,19 +20,16 @@ public class FlightService {
     public void removeExpiredOrFullFlights() {
         List<Flight> flights = iFlightRepository.findAll();
         for (Flight flight : flights) {
-            if (flight.getDepartureDate().isBefore(LocalDateTime.now()) || flight.availableSeats() <= 0) {
+            if (flight.getDepartureDate().isBefore(LocalDateTime.now()) || flight.getAvailableSeats() <= 0) {
                 iFlightRepository.delete(flight);
             }
         }
     }
 
     public Flight createFlight(Flight flight) {
-
         if (flight.getDepartureDate().isBefore(LocalDateTime.now())) {
             flight.setFlightStatus(false);
         }
-        flight.availableSeats();
-
         return iFlightRepository.save(flight);
     }
 
@@ -46,9 +43,6 @@ public class FlightService {
         existingFlight.setTotalSeats(flightDetails.getTotalSeats());
         existingFlight.setReservedSeats(flightDetails.getReservedSeats());
 
-
-        existingFlight.availableSeats();
-
         return iFlightRepository.save(existingFlight);
     }
 
@@ -59,7 +53,7 @@ public class FlightService {
     public List<Flight> getAvailableFlights(String destination) {
         List<Flight> allFlights = iFlightRepository.findByDestination(destination);
         return allFlights.stream()
-                .filter(flight -> flight.availableSeats() > 0)
+                .filter(flight -> flight.getAvailableSeats() > 0) // Cambiar a getAvailableSeats()
                 .collect(Collectors.toList());
     }
 
@@ -75,8 +69,6 @@ public class FlightService {
         }
         return false;
     }
-
-
 
 }
 

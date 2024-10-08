@@ -10,11 +10,10 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
-
-@Entity
-@Table(name = "routes")
 @Getter
 @Setter
+@Entity
+@Table(name = "route")
 public class Route {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,18 +29,23 @@ public class Route {
 
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Booking> bookings;
+    private Set<Booking> bookings = new HashSet<>();
 
     public Route() {
-        this.flights = new HashSet<>();
+    }
+    public Route(Long id, String nameRoute, Set<Flight> flights, Set<Booking> bookings) {
+        this.id = id;
+        this.nameRoute = nameRoute;
+        this.flights = flights;
+        this.bookings = bookings;
     }
 
-    public Route(String nameRoute, Long id) {
+    public Route(String nameRoute, long id) {
         this.nameRoute = nameRoute;
         this.id = id;
         this.flights = new HashSet<>();
+        this.bookings = new HashSet<>();
     }
-
 
 }
 

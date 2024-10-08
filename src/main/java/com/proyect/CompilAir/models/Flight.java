@@ -32,22 +32,20 @@ public class Flight {
     @Column(nullable = false)
     private boolean flightStatus = true;
 
-    @Future
+    @Future(message = "Departure date must be in the future")
     @Column(nullable = false)
     private LocalDateTime departureDate;
 
-    @Future
+    @Future(message = "Return date must be in the future")
     @Column(nullable = false)
     private LocalDateTime returnDate;
 
-    @Min(value = 150, message = "The total number of seats must be at least 1")
+
     @Column(nullable = false)
     private Long totalSeats;
 
-
-    @Min(value = 0, message = "Reserved seats cannot be negative")
     @Column(nullable = false)
-    private long reservedSeats = 0;
+    private long reservedSeats;
 
     @Column(name = "destination")
     private String destination;
@@ -72,7 +70,7 @@ public class Flight {
         this.destination = destination;
     }
 
-    public long availableSeats() {
+    public long getAvailableSeats() {
         return totalSeats - reservedSeats;
     }
 

@@ -1,5 +1,6 @@
 package com.proyect.CompilAir.controllers;
 
+import com.proyect.CompilAir.excepcions.ResourceNotFoundException;
 import com.proyect.CompilAir.models.Route;
 import com.proyect.CompilAir.services.RouteService;
 import org.springframework.http.HttpStatus;
@@ -13,21 +14,27 @@ import java.util.Optional;
 @RequestMapping("/api/routes")
 @CrossOrigin(origins = "*")
 public class RouteController {
+
     private final RouteService routeService;
+
     public RouteController(RouteService routeService){
         this.routeService = routeService;
     }
+
     @GetMapping
     public List<Route> getAllRoutes(){
         return routeService.getAllRoutes();
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Route> getRouteById(@PathVariable("id") Long id){
-        Optional<Route> route = routeService.getRouteById(id);
-        return route.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-            }
+    public ResponseEntity<Route> getRouteById(@PathVariable("id") Long id) {
+        try {
+            Route route = routeService.getRouteById(id);
+            return ResponseEntity.ok(route);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
     @PostMapping
     public Route createRoute(@RequestBody Route newRoute){
