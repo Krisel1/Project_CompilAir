@@ -28,12 +28,9 @@ public class RouteController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Route> getRouteById(@PathVariable("id") Long id) {
-        try {
-            Route route = routeService.getRouteById(id);
-            return ResponseEntity.ok(route);
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        Optional<Route> route = routeService.getRouteById(id);
+        return route.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PostMapping

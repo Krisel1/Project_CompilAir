@@ -4,18 +4,23 @@ import com.proyect.CompilAir.models.Booking;
 import com.proyect.CompilAir.repositories.IBookingRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 class BookingServiceTest {
 
-    private BookingService bookingService;
+    @Mock
     private IBookingRepository iBookingRepository;
+
+    @InjectMocks
+    private BookingService bookingService;
 
     @BeforeEach
     public void setUp() {
@@ -62,28 +67,30 @@ class BookingServiceTest {
 
         verify(iBookingRepository, times(1)).findById(bookingId);
     }
+
     @Test
     public void test_Create_Booking() {
+        Booking newBooking = new Booking(1L, "Eva", "Porter", 650349024, "Female", "hello@gmail.com", null, "dni", "3454556", "street piruleta", 21003, "Spain", "seville", null, null);
 
-        Booking newBooking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni","3454556","street piruleta",21003,"Spain","seville",null,null);
-
-        when(iBookingRepository.save(newBooking)).thenReturn(newBooking);
+        when(iBookingRepository.save(any(Booking.class))).thenReturn(newBooking);
 
         Booking result = bookingService.createBooking(newBooking);
 
         assertNotNull(result);
         assertEquals("Eva", result.getName());
 
-        verify(iBookingRepository, times(1)).save(newBooking);
+        verify(iBookingRepository, times(1)).save(any(Booking.class));
     }
-    @Test
-    public void testUpdateProject() {
 
-        Booking booking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni","3454556","street piruleta",21003,"Spain","seville",null,null);
+    @Test
+    public void test_Update_Booking() {
+        Booking booking = new Booking(1L, "Eva", "Porter", 650349024, "Female", "hello@gmail.com", null, "dni", "3454556", "street piruleta", 21003, "Spain", "seville", null, null);
+
+        when(iBookingRepository.save(any(Booking.class))).thenReturn(booking);
 
         bookingService.updateBooking(booking);
 
-        verify(iBookingRepository, times(1)).save(booking);
+        verify(iBookingRepository, times(1)).save(any(Booking.class));
     }
 
     @Test

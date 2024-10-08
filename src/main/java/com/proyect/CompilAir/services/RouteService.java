@@ -26,9 +26,12 @@ public class RouteService {
         return (List<Route>) iRouteRepository.findAll();
     }
 
-    public Route getRouteById(Long id) {
-        return iRouteRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Route not found with id " + id));
+    public Optional<Route> getRouteById(Long id) {
+        Optional<Route> route = iRouteRepository.findById(id);
+        if (route.isEmpty()) {
+            throw new ResourceNotFoundException("Route not found with id " + id);
+        }
+        return route;
     }
     public void updateRoute(Route route, long id){
         route.setId(id);

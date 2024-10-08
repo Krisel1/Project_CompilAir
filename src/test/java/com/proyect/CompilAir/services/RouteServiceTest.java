@@ -5,19 +5,20 @@ import com.proyect.CompilAir.repositories.IRouteRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 class RouteServiceTest {
-    @Mock private IRouteRepository iRouteRepository;
-    @InjectMocks private RouteService routeService;
+
+    @Mock
+    private IRouteRepository iRouteRepository;
+
+    @InjectMocks
+    private RouteService routeService;
 
     private Route route1;
     private Route route2;

@@ -18,7 +18,7 @@ public class BookingDTO {
     @NotNull(message = "The surname cannot be null")
     private String surname;
 
-    private String phone;
+    private int phone;
 
     private String genre;
 
@@ -50,7 +50,7 @@ public class BookingDTO {
 
     private Long user_id;
 
-    public BookingDTO(Long id, Long user_id, String name, String surname, String phone, String email, LocalDate birthdayDate, String identificationNumber, String genre, String identificationType, String address, int zipCode, String country, String city, Long route_id) {
+    public BookingDTO(Long id, Long user_id, String name, String surname, int phone, String email, LocalDate birthdayDate, String identificationNumber, String genre, String identificationType, String address, int zipCode, String country, String city, Long route_id) {
         this.id = id;
         this.user_id = user_id;
         this.name = name;

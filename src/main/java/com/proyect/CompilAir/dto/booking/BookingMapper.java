@@ -18,7 +18,7 @@ public class BookingMapper {
 
         return new BookingDTO(
                 booking.getId(),
-                user != null ? user.getId() : null, // Manejo de usuario nulo
+                user != null ? user.getId() : null,
                 booking.getName(),
                 booking.getSurname(),
                 booking.getPhone(),
@@ -31,7 +31,7 @@ public class BookingMapper {
                 booking.getZipCode(),
                 booking.getCountry(),
                 booking.getCity(),
-                route != null ? route.getId() : null // Manejo de ruta nula
+                route != null ? route.getId() : null
         );
     }
 
@@ -55,12 +55,10 @@ public class BookingMapper {
         booking.setCountry(bookingDTO.getCountry());
         booking.setCity(bookingDTO.getCity());
 
-        // Crear y asignar ruta
         Route route = new Route();
         route.setId(bookingDTO.getRouteId());
         booking.setRoute(route);
 
-        // Crear y asignar usuario
         User user = new User();
         user.setId(bookingDTO.getUserId());
         booking.setUser(user);

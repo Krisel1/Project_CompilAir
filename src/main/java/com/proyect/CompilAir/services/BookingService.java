@@ -13,10 +13,10 @@ import java.util.ArrayList;
 @Service
 public class BookingService {
 
-    private final IBookingRepository iBookingRepository;
-    private final IFlightRepository iFlightRepository;
+    private IBookingRepository iBookingRepository;
+    private IFlightRepository iFlightRepository;
 
-    public BookingService(IBookingRepository ibookingRepository, IFlightRepository iFlightRepository) {
+    public BookingService(IBookingRepository ibookingRepository) {
         this.iBookingRepository = ibookingRepository;
         this.iFlightRepository = iFlightRepository;
     }

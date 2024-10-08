@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
+
 @Getter
 @Setter
 @Entity
@@ -23,7 +23,7 @@ public class Booking {
     private String surname;
 
     @Column(name = "phone")
-    private String phone;
+    private int phone;
 
     @Column(name ="genre")
     private String genre;
@@ -67,7 +67,7 @@ public class Booking {
 
     }
 
-    public Booking(Long id, String name, String surname, String phone, String genre, String email, LocalDate birthdayDate, String identificationType, String identificationNumber, String address, int zipCode, String country, String city, User user,Route route) {
+    public Booking(Long id, String name, String surname, int phone, String genre, String email, LocalDate birthdayDate, String identificationType, String identificationNumber, String address, int zipCode, String country, String city, User user,Route route) {
         this.id = id;
         this.name = name;
         this.surname = surname;
