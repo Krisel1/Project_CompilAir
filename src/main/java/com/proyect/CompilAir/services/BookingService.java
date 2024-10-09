@@ -14,7 +14,7 @@ public class BookingService {
 
     private IBookingRepository iBookingRepository;
     private FlightService flightService;
-
+@Autowired
     public BookingService(IBookingRepository ibookingRepository, FlightService flightService) {
         this.iBookingRepository = ibookingRepository;
         this.flightService = flightService;

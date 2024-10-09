@@ -57,7 +57,7 @@ public class Flight {
 
     }
 
-    public Flight(long id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, Long totalSeats, long reservedSeats,String destination) {
+    public Flight(long id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, Long totalSeats, long reservedSeats,String destination,Route route) {
         this.id = id;
         this.flightName = flightName;
         this.flightStatus = flightStatus;
@@ -66,7 +66,9 @@ public class Flight {
         this.totalSeats = totalSeats;
         this.reservedSeats = reservedSeats;
         this.destination = destination;
+        this.route = route;
     }
+
 
     public long availableSeats() {
         long available = totalSeats - reservedSeats;
