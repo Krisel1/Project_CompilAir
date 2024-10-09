@@ -22,8 +22,6 @@ public class FlightService {
     }
 
 
-
-
     public Flight createFlight(Flight flight) {
 
         if (flight.getDepartureDate().isBefore(LocalDateTime.now())) {
