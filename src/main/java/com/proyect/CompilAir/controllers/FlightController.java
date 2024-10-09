@@ -19,19 +19,17 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/flights")
 public class FlightController {
 
-<<<<<<< HEAD
-        @Autowired
-    private FlightService flightService;
-=======
+
     private final FlightService flightService;
     private final FlightMapper flightMapper;
->>>>>>> dev
 
     @Autowired
     public FlightController(FlightService flightService, FlightMapper flightMapper) {
         this.flightService = flightService;
         this.flightMapper = flightMapper;
     }
+
+
 
     @PostMapping
     public ResponseEntity<?> createFlight(@RequestBody FlightDTO flightDTO) {

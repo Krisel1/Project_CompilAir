@@ -1,6 +1,6 @@
 name: CI for feature/testGHActions Branch
 
-# El workflow se disparará cuando haya un push o pull request en la rama dev
+
 on:
   push:
     branches:
