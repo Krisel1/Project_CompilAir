@@ -50,7 +50,10 @@ public class BookingDTO {
 
     private Long user_id;
 
-    public BookingDTO(Long id, Long user_id, String name, String surname, int phone, String email, LocalDate birthdayDate, String identificationNumber, String genre, String identificationType, String address, int zipCode, String country, String city, Long route_id) {
+    private int numberOfPlaces;
+
+    private Long flight_id;
+    public BookingDTO(Long id, Long user_id, String name, String surname, int phone, String email, LocalDate birthdayDate, String identificationNumber, String genre, String identificationType, String address, int zipCode, String country, String city, Long route_id, int numberOfPlaces,Long flight_id) {
         this.id = id;
         this.user_id = user_id;
         this.name = name;
@@ -66,27 +69,11 @@ public class BookingDTO {
         this.country = country;
         this.city = city;
         this.route_id = route_id;
+        this.numberOfPlaces = numberOfPlaces;
+        this.flight_id = flight_id;
+
     }
 
-
-
-//    public BookingDTO(Long id, String name, String surname, String email, String city, String country,int phone, Long flight_id, Long user_id) {
-//        this.id = id;
-//        this.name = name;
-//        this.surname = surname;
-//        this.email = email;
-//        this.city = city;
-//        this.country = country;
-//        this.phone = phone;
-//        this.flight_id = flight_id;
-//        this.user_id = user_id;
-//    }
-
-    public Long getRouteId() { return route_id; }
-    public void setRouteId(Long route_id) { this.route_id = route_id; }
-
-    public Long getUserId() { return user_id; }
-    public void setUserId(Long user_id) { this.user_id = user_id; }
     public BookingDTO() {
     }
 }

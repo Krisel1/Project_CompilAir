@@ -10,11 +10,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 public class FlightService {
+    private final IFlightRepository iFlightRepository;
 
     @Autowired
-    IFlightRepository iFlightRepository;
+    public FlightService(IFlightRepository iFlightRepository){
+        this.iFlightRepository = iFlightRepository;
+    }
+
+
 
 
     public Flight createFlight(Flight flight) {
@@ -27,7 +34,7 @@ public class FlightService {
         return iFlightRepository.save(flight);
     }
 
-    public Flight updateFlight(Long id, Flight flightDetails) {
+    public Flight updateFlight(Long id,Flight flightDetails) {
         Flight existingFlight = iFlightRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Flight not found with id " + id));
 
@@ -66,8 +73,6 @@ public class FlightService {
         }
         return false;
     }
-
-
 
 }
 

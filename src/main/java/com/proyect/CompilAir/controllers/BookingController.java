@@ -76,7 +76,9 @@ public class BookingController {
                 booking.getZipCode(),
                 booking.getCountry(),
                 booking.getCity(),
-                booking.getRoute().getId()
+                booking.getRoute().getId(),
+                booking.getNumberOfPlaces(),
+                booking.getFlight().getId()
         );
     }
 
@@ -95,15 +97,19 @@ public class BookingController {
         booking.setZipCode(bookingDTO.getZipCode());
         booking.setCountry(bookingDTO.getCountry());
         booking.setCity(bookingDTO.getCity());
-
+        booking.setNumberOfPlaces(bookingDTO.getNumberOfPlaces());
 
         Route route = new Route();
-        route.setId(bookingDTO.getRouteId());
+        route.setId(bookingDTO.getRoute_id());
         booking.setRoute(route);
 
         User user = new User();
-        user.setId(bookingDTO.getUserId());
+        user.setId(bookingDTO.getUser_id());
         booking.setUser(user);
+
+        Flight flight = new Flight();
+        flight.setId(bookingDTO.getFlight_id());
+        booking.setFlight(flight);
 
         return booking;
     }
