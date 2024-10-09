@@ -27,13 +27,12 @@ jobs:
 
         run: mvn -B -DskipTests clean package
 
-
       - name: Run tests with debug
         run: mvn -B -e -X test
 
 
       - name: Upload test results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@latest
         with:
           name: test-results
           path: target/surefire-reports/
@@ -41,7 +40,7 @@ jobs:
 
       - name: Archive Maven build logs
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@latest
         with:
           name: build-logs
           path: target/*.log
