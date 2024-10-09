@@ -198,17 +198,12 @@ public class Booking {
         this.route = route;
     }
 
-<<<<<<< HEAD
     public Payment getPayment() {
         return payment;
     }
 
     public void setPayment(Payment payment) {
         this.payment = payment;
-=======
-    public int getNumberOfPlaces() {
-        return numberOfPlaces;
->>>>>>> 60cf1726df8233f6bb1c25819ef3c517a48971a4
     }
 
     public void setNumberOfPlaces(int numberOfPlaces) {
