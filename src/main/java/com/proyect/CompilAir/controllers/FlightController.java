@@ -19,13 +19,23 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/flights")
 public class FlightController {
 
+<<<<<<< HEAD
         @Autowired
     private FlightService flightService;
+=======
+    private final FlightService flightService;
+    private final FlightMapper flightMapper;
+>>>>>>> dev
 
+    @Autowired
+    public FlightController(FlightService flightService, FlightMapper flightMapper) {
+        this.flightService = flightService;
+        this.flightMapper = flightMapper;
+    }
 
     @PostMapping
     public ResponseEntity<?> createFlight(@RequestBody FlightDTO flightDTO) {
-        Flight flight = FlightMapper.toEntity(flightDTO);
+        Flight flight = flightMapper.toEntity(flightDTO);
 
         Flight savedFlight = flightService.createFlight(flight);
         FlightDTO savedFlightDTO = FlightMapper.toDTO(savedFlight);
@@ -44,7 +54,7 @@ public class FlightController {
 
     @PutMapping("/{id}")
     public ResponseEntity<FlightDTO> updateFlight(@PathVariable Long id, @RequestBody FlightDTO flightDTO) {
-        Flight flight = FlightMapper.toEntity(flightDTO);
+        Flight flight = flightMapper.toEntity(flightDTO);
         Flight updatedFlight = flightService.updateFlight(id, flight);
         FlightDTO updatedFlightDTO = FlightMapper.toDTO(updatedFlight);
         return ResponseEntity.ok(updatedFlightDTO);
