@@ -1,6 +1,5 @@
 name: CI for feature/testGHActions Branch
 
-
 on:
   push:
     branches:
@@ -23,24 +22,15 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+
       - name: Build with Maven (skip tests)
+        run: mvn clean package -DskipTests
 
-        run: mvn -B -DskipTests clean package
-
-      - name: Run tests with debug
-        run: mvn -B -e -X test
-
+      - name: Run tests
+        run: mvn test
 
       - name: Upload test results
         uses: actions/upload-artifact@latest
         with:
           name: test-results
           path: target/surefire-reports/
-
-
-      - name: Archive Maven build logs
-        if: failure()
-        uses: actions/upload-artifact@latest
-        with:
-          name: build-logs
-          path: target/*.log
