@@ -42,20 +42,6 @@ class UserControllerTest {
         user2 = new User(2L, USER, "password2", "user2@example.com", "Jacky");
     }
 
-   // @Test
-    //void createUser() throws Exception {
-      //  when(userService.createUser(any(User.class))).thenReturn(user1);
-
-        //String userJson = new ObjectMapper().writeValueAsString(user1);
-
-        //mockMvc.perform(post("/api/users")
-         //               .contentType(MediaType.APPLICATION_JSON)
-          //              .content(userJson))
-            //    .andExpect(status().isCreated())
-              //  .andExpect(content().json(userJson));
-    //}
-
-
     @Test
     void test_Create_User() throws Exception {
         User user = new User(1L, USER, "password1", "user1@example.com", "Fran");
