@@ -3,6 +3,7 @@ package com.proyect.CompilAir.controllers;
 
 
 import com.proyect.CompilAir.models.Flight;
+import com.proyect.CompilAir.models.Route;
 import com.proyect.CompilAir.services.FlightService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,10 +54,12 @@ public class FlightControllerTest {
 
     @Test
     void test_Get_Flight_By_Id() throws Exception {
+        Route route = new Route("SVQ-PAR", 1L);
+
         Flight flight = new Flight(1L, "FL123", true,
                 LocalDateTime.of(2024, 9, 25, 10, 0),
                 LocalDateTime.of(2024, 9, 25, 12, 0),
-                150L, 50L,"seville");
+                150L, 50L,"seville",route);
 
         when(flightService.getFlightById(1L)).thenReturn(flight);
 
@@ -74,7 +77,7 @@ public class FlightControllerTest {
 
     @Test
     void test_Create_Flight() throws Exception {
-
+        Route route = new Route("SVQ-PAR", 1L);
         Flight flight = new Flight(
                 1L,
                 "Flight A",
@@ -83,7 +86,8 @@ public class FlightControllerTest {
                 LocalDateTime.of(2024, 10, 10, 10, 0),
                 100L,
                 50L,
-                "New York"
+                "New York",
+                route
         );
 
         flight.setId(1L);
@@ -111,11 +115,12 @@ public class FlightControllerTest {
     }
     @Test
     public void test_Update_Flight() throws Exception {
+        Route route = new Route("SVQ-PAR", 1L);
         Long id = 1L;
         Flight flight = new Flight(1L, "FL456", false,
                 LocalDateTime.of(2024, 9, 25, 14, 0),
                 LocalDateTime.of(2024, 9, 25, 16, 0),
-                200L,100L,"seville");
+                200L,100L,"seville", route);
 
         when(flightService.updateFlight(eq(id), any(Flight.class))).thenReturn(flight);
 
@@ -130,16 +135,17 @@ public class FlightControllerTest {
 
     @Test
     void test_Get_Available_Flights() throws Exception {
+        Route route = new Route("SVQ-PAR", 1L);
         Flight flight1 = new Flight(1, "FL123", true,
                 LocalDateTime.of(2024, 9, 25, 10, 0),
                 LocalDateTime.of(2024, 9, 25, 12, 0),
-                100L,50L,"seville");
+                100L,50L,"seville", route);
         flight1.setReservedSeats(50);
 
         Flight flight2 = new Flight(2, "FL456", true,
                 LocalDateTime.of(2024, 9, 25, 14, 0),
                 LocalDateTime.of(2024, 9, 25, 16, 0),
-                200L,100L, "seville");
+                200L,100L, "seville",route);
         flight2.setReservedSeats(200);
         when(flightService.getAvailableFlights("Madrid")).thenReturn(Arrays.asList(flight1));
 
