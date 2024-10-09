@@ -26,11 +26,6 @@ jobs:
       - name: Build with Maven (skip tests)
         run: mvn clean package -DskipTests
 
+
       - name: Run tests
         run: mvn test
-
-      - name: Upload test results
-        uses: actions/upload-artifact@latest
-        with:
-          name: test-results
-          path: target/surefire-reports/
