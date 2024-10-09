@@ -12,9 +12,10 @@ public class FlightMapper {
     private final IRouteRepository iRouteRepository;
 
     @Autowired
-    public FlightMapper(IRouteRepository iRouteRepository){
+    public FlightMapper(IRouteRepository iRouteRepository) {
         this.iRouteRepository = iRouteRepository;
     }
+
     public static FlightDTO toDTO(Flight flight) {
         return new FlightDTO(
                 flight.getId(),
@@ -25,14 +26,18 @@ public class FlightMapper {
                 flight.getTotalSeats(),
                 flight.getReservedSeats(),
                 flight.getDestination(),
-                flight.getRoute().getId()
+                flight.getRoute() != null ? flight.getRoute().getId() : null
         );
     }
 
-
     public Flight toEntity(FlightDTO flightDTO) {
-Route route = iRouteRepository.findById(flightDTO.getRoute_id())
-        .orElseThrow(() -> new IllegalArgumentException("Route not found"));
+        Route route = null;
+
+
+        if (flightDTO.getRoute_id() != null) {
+            route = iRouteRepository.findById(flightDTO.getRoute_id())
+                    .orElseThrow(() -> new IllegalArgumentException("Route not found"));
+        }
 
         return new Flight(
                 flightDTO.getId(),
@@ -47,3 +52,4 @@ Route route = iRouteRepository.findById(flightDTO.getRoute_id())
         );
     }
 }
+

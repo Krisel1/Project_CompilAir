@@ -96,8 +96,7 @@ public class FlightControllerTest {
         when(flightService.createFlight(any(Flight.class))).thenReturn(flight);
 
 
-        mockMvc.perform(
-                        post("/api/flights")
+        mockMvc.perform(post("/api/flights")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         "{\"id\":1,\"flightName\":\"Flight A\",\"flightStatus\":true,\"departureDate\":\"2024-10-01T10:00:00\",\"returnDate\":\"2024-10-10T10:00:00\",\"totalSeats\":100,\"reservedSeats\":50,\"destination\":\"New York\"}"
@@ -117,18 +116,18 @@ public class FlightControllerTest {
     public void test_Update_Flight() throws Exception {
         Route route = new Route("SVQ-PAR", 1L);
         Long id = 1L;
-        Flight flight = new Flight(1L, "FL456", false,
+        Flight flight = new Flight(id, "FL456", false,
                 LocalDateTime.of(2024, 9, 25, 14, 0),
                 LocalDateTime.of(2024, 9, 25, 16, 0),
-                200L,100L,"seville", route);
+                200L, 100L, "seville", route);
+
 
         when(flightService.updateFlight(eq(id), any(Flight.class))).thenReturn(flight);
 
         mockMvc.perform(put("/api/flights/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"flightName\":\"FL456\",\"flightStatus\":false,\"departureDate\":\"2024-09-25T14:00:00\",\"returnDate\":\"2024-09-25T16:00:00\",\"totalSeats\":200}"))
+                        .content("{\"id\":1,\"flightName\":\"FL456\",\"flightStatus\":false,\"departureDate\":\"2024-09-25T14:00:00\",\"returnDate\":\"2024-09-25T16:00:00\",\"totalSeats\":200,\"reservedSeats\":100,\"destination\":\"seville\",\"route_id\":1}"))
                 .andExpect(status().isOk());
-
 
         verify(flightService, times(1)).updateFlight(eq(id), any(Flight.class));
     }
