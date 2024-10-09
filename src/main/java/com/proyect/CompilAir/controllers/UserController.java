@@ -1,19 +1,17 @@
 package com.proyect.CompilAir.controllers;
 
 
-    import com.proyect.CompilAir.models.User;
-    import com.proyect.CompilAir.services.UserService;
-    import org.springframework.http.HttpStatus;
-    import org.springframework.http.ResponseEntity;
-    import org.springframework.web.bind.annotation.*;
-
+import com.proyect.CompilAir.models.User;
+import com.proyect.CompilAir.services.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
-
-    import java.util.Optional;
+import java.util.Optional;
     
-    @CrossOrigin("*")
-    @RestController
-    @RequestMapping("/api/users")
+@CrossOrigin("*")
+@RestController
+@RequestMapping("/api/users")
     public class UserController {
     
         private final UserService userService;

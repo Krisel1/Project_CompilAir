@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/flights")
 public class FlightController {
 
-    @Autowired
+        @Autowired
     private FlightService flightService;
 
 
