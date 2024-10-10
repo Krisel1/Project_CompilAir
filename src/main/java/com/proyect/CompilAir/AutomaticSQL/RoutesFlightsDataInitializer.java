@@ -17,6 +17,7 @@ public class RoutesFlightsDataInitializer {
     CommandLineRunner initDatabase(IFlightRepository iFlightRepository, IRouteRepository iRouteRepository) {
         return args -> {
 
+
             Route route1 = new Route("MAD-OVD", 1L);
             Route route2 = new Route("MAD-BCN", 2L);
             Route route3 = new Route("SVQ-IBZ",3L);
