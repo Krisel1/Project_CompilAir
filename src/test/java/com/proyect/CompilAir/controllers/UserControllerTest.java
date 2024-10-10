@@ -1,9 +1,5 @@
 package com.proyect.CompilAir.controllers;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 08e1576658e0eb9f9fb78c287eaa42521d82eb52
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyect.CompilAir.models.User;
 import com.proyect.CompilAir.services.UserService;
