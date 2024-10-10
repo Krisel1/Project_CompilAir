@@ -1,13 +1,9 @@
 package com.proyect.CompilAir.services;
 
-
 import com.proyect.CompilAir.models.User;
 import com.proyect.CompilAir.repositories.IUserRepository;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
     @Service
