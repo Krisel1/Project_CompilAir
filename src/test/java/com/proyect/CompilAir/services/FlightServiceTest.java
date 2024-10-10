@@ -17,6 +17,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 class FlightServiceTest {
 
@@ -32,7 +33,7 @@ class FlightServiceTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        flight = new Flight(1L, "FL123", true, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2), 150L,100L,"seville");
+        flight = new Flight(1L, "FL123", true, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2), 150L,100L,"seville", null);
     }
 
     @Test
@@ -50,7 +51,7 @@ class FlightServiceTest {
         when(flightRepository.findById(eq(1L))).thenReturn(Optional.of(flight));
         when(flightRepository.save(any(Flight.class))).thenReturn(flight);
 
-        Flight updatedFlight = flightService.updateFlight(1L, flight);
+        Flight updatedFlight = flightService.updateFlight(flight.getId(),flight);
 
         assertEquals("FL123", updatedFlight.getFlightName());
         verify(flightRepository, times(1)).findById(eq(1L));

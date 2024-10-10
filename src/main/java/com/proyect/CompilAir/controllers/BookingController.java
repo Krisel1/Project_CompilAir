@@ -2,8 +2,12 @@ package com.proyect.CompilAir.controllers;
 
 import com.proyect.CompilAir.dto.booking.BookingDTO;
 import com.proyect.CompilAir.models.Booking;
+import com.proyect.CompilAir.models.Flight;
+import com.proyect.CompilAir.models.Route;
+import com.proyect.CompilAir.models.User;
 import com.proyect.CompilAir.services.BookingService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,23 +20,24 @@ import java.util.ArrayList;
 public class BookingController {
 
     private final BookingService bookingService;
+    @Autowired
     public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
-    @GetMapping(path = "")
+    @GetMapping
     public ArrayList<Booking> getAllBookings(){
         return bookingService.getAllBookings();
     }
 
-    @GetMapping("/booking/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<BookingDTO> getBookingById(@PathVariable Long id) {
         Booking booking = bookingService.getBookingById(id);
         BookingDTO bookingDTO = convertToDto(booking);
         return ResponseEntity.ok(bookingDTO);
     }
 
-    @PostMapping(path ="")
+    @PostMapping
     public ResponseEntity<BookingDTO> createBooking(@RequestBody BookingDTO bookingDTO) {
         Booking booking = convertToEntity(bookingDTO);
         bookingService.createBooking(booking);
@@ -60,11 +65,22 @@ public class BookingController {
     private BookingDTO convertToDto(Booking booking) {
         return new BookingDTO(
                 booking.getId(),
+                booking.getUser().getId(),
                 booking.getName(),
                 booking.getSurname(),
+                booking.getPhone(),
                 booking.getEmail(),
+                booking.getBirthdayDate(),
+                booking.getIdentificationNumber(),
+                booking.getGenre(),
+                booking.getIdentificationType(),
+                booking.getAddress(),
+                booking.getZipCode(),
+                booking.getCountry(),
                 booking.getCity(),
-                booking.getCountry()
+                booking.getRoute().getId(),
+                booking.getNumberOfPlaces(),
+                booking.getFlight().getId()
         );
     }
 
@@ -73,9 +89,30 @@ public class BookingController {
         booking.setId(bookingDTO.getId());
         booking.setName(bookingDTO.getName());
         booking.setSurname(bookingDTO.getSurname());
+        booking.setPhone(bookingDTO.getPhone());
         booking.setEmail(bookingDTO.getEmail());
-        booking.setCity(bookingDTO.getCity());
+        booking.setBirthdayDate(bookingDTO.getBirthdayDate());
+        booking.setIdentificationNumber(bookingDTO.getIdentificationNumber());
+        booking.setGenre(bookingDTO.getGenre());
+        booking.setIdentificationType(bookingDTO.getIdentificationType());
+        booking.setAddress(bookingDTO.getAddress());
+        booking.setZipCode(bookingDTO.getZipCode());
         booking.setCountry(bookingDTO.getCountry());
+        booking.setCity(bookingDTO.getCity());
+        booking.setNumberOfPlaces(bookingDTO.getNumberOfPlaces());
+
+        Route route = new Route();
+        route.setId(bookingDTO.getRoute_id());
+        booking.setRoute(route);
+
+        User user = new User();
+        user.setId(bookingDTO.getUser_id());
+        booking.setUser(user);
+
+        Flight flight = new Flight();
+        flight.setId(bookingDTO.getFlight_id());
+        booking.setFlight(flight);
+
         return booking;
     }
 }

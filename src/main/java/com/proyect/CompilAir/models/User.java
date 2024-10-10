@@ -1,5 +1,6 @@
 package com.proyect.CompilAir.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +31,7 @@ public class User implements UserDetails {
     private ERole role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference("booking-user")
     private Set<Booking> bookings;
 
     public User(Long id, ERole role, String password, String email, String username) {
@@ -38,6 +40,9 @@ public class User implements UserDetails {
         this.password = password;
         this.email = email;
         this.username = username;
+    }
+
+    public User() {
     }
 
     @Override

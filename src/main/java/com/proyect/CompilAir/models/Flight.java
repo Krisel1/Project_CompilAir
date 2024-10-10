@@ -1,16 +1,16 @@
 package com.proyect.CompilAir.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 import jakarta.validation.constraints.*;
 
 
 @Entity
-@Table(name = "Flights")
+@Table(name = "Flight")
 @Getter
 @Setter
 public class Flight {
@@ -19,40 +19,45 @@ public class Flight {
     @GeneratedValue ( strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "El número de vuelo no puede estar vacío")
-    @Size(max = 10, message = "El número de vuelo no puede exceder 10 caracteres")
+    @NotBlank(message = "Flight number cannot be empty")
+    @Size(max = 10, message = "The flight number cannot exceed 10 characters")
     @Column(unique = true, nullable = false)
     private String flightName;
 
     @NotNull
     @Column(nullable = false)
-    private boolean flightStatus;
+    private boolean flightStatus = true;
 
-    @Future(message = "La hora de salida debe estar en el futuro")
+    @Future
     @Column(nullable = false)
     private LocalDateTime departureDate;
 
-    @Future(message = "La hora de llegada debe estar en el futuro")
+    @Future
     @Column(nullable = false)
     private LocalDateTime returnDate;
 
-    @Min(value = 1, message = "El número total de asientos debe ser al menos 1")
+    @Min(value = 150, message = "The total number of seats must be at least 1")
     @Column(nullable = false)
     private Long totalSeats;
 
 
-    @Min(value = 0, message = "Los asientos reservados no pueden ser negativos")
+    @Min(value = 0, message = "Reserved seats cannot be negative")
     @Column(nullable = false)
     private long reservedSeats = 0;
 
     @Column(name = "destination")
     private String destination;
 
+    @ManyToOne
+    @JoinColumn(name = "route_id", nullable = false)
+    @JsonIgnore
+    private Route route;
+
     public Flight() {
 
     }
 
-    public Flight(long id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, Long totalSeats, long reservedSeats,String destination) {
+    public Flight(long id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, Long totalSeats, long reservedSeats,String destination,Route route) {
         this.id = id;
         this.flightName = flightName;
         this.flightStatus = flightStatus;
@@ -61,32 +66,17 @@ public class Flight {
         this.totalSeats = totalSeats;
         this.reservedSeats = reservedSeats;
         this.destination = destination;
+        this.route = route;
     }
+
 
     public long availableSeats() {
-        return totalSeats - reservedSeats;
+        long available = totalSeats - reservedSeats;
+        if (available <= 0) {
+            this.flightStatus = false;
+        }
+        return available;
     }
-
-
-
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    private Set<Route> route;
-
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    private Set<Booking> booking;
-
-
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    private Set<User> user;
 
 
 }

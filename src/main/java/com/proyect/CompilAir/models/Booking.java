@@ -1,5 +1,7 @@
 package com.proyect.CompilAir.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -33,7 +35,7 @@ public class Booking {
     private String identificationType;
 
     @Column(name ="identificationNumber")
-    private int identificationNumber;
+    private String identificationNumber;
 
     @Column(name ="address")
     private String address;
@@ -47,14 +49,30 @@ public class Booking {
     @Column(name ="city")
     private String city;
 
+    @Column(name="numberOfPlaces")
+    private int numberOfPlaces;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference("booking-user")
     private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "route_id", nullable = false)
+    private Route route;
 
     @ManyToOne
     @JoinColumn(name = "flight_id", nullable = false)
     private Flight flight;
+
+    public Flight getFlight(){
+        return flight;
+    }
+    public void setFlight(Flight flight){
+        this.flight = flight;
+    }
+
 
 
     public Long getId() {
@@ -121,11 +139,11 @@ public class Booking {
         this.identificationType = identificationType;
     }
 
-    public int getIdentificationNumber() {
+    public String getIdentificationNumber() {
         return identificationNumber;
     }
 
-    public void setIdentificationNumber(int identificationNumber) {
+    public void setIdentificationNumber(String identificationNumber) {
         this.identificationNumber = identificationNumber;
     }
 
@@ -169,20 +187,26 @@ public class Booking {
         this.user = user;
     }
 
-    public Flight getFlight() {
-        return flight;
+    public Route getRoute() {
+        return route;
     }
 
-    public void setFlight(Flight flight) {
-        this.flight = flight;
+    public void setRoute(Route route) {
+        this.route = route;
     }
 
+    public int getNumberOfPlaces() {
+        return numberOfPlaces;
+    }
 
+    public void setNumberOfPlaces(int numberOfPlaces) {
+        this.numberOfPlaces = numberOfPlaces;
+    }
     public Booking(){
 
     }
 
-    public Booking(Long id, String name, String surname, int phone, String genre, String email, LocalDate birthdayDate, String identificationType, int identificationNumber, String address, int zipCode, String country, String city, User user, Flight flight) {
+    public Booking(Long id, String name, String surname, int phone, String genre, String email, LocalDate birthdayDate, String identificationType, String identificationNumber, String address, int zipCode, String country, String city, User user,Route route,int numberOfPlaces,Flight flight) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -197,8 +221,11 @@ public class Booking {
         this.country = country;
         this.city = city;
         this.user = user;
+        this.route = route;
+        this.numberOfPlaces = numberOfPlaces;
         this.flight = flight;
     }
+
 
 }
 
