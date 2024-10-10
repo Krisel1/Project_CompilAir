@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
@@ -19,114 +20,259 @@ import static org.mockito.Mockito.*;
 
 class BookingServiceTest {
 
-    @Mock
-    private IBookingRepository iBookingRepository;
+  @Mock private IBookingRepository iBookingRepository;
 
-    @Mock
-    private FlightService flightService;
+  @Mock private FlightService flightService;
+  @Mock private RouteService routeService;
 
-    @InjectMocks
-    private BookingService bookingService;
+  @InjectMocks private BookingService bookingService;
 
+  @BeforeEach
+  public void setUp() {
+    MockitoAnnotations.openMocks(this);
+  }
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+  @Test
+  public void test_Get_All_Bookings() {
 
-    @Test
-    public void test_Get_All_Bookings() {
+    List<Booking> mockProjects = new ArrayList<>();
+    mockProjects.add(
+        new Booking(
+            1L,
+            "Jacky",
+            "Maravi",
+            4962034,
+            "Female",
+            "jacky@gmail.com",
+            null,
+            "Dni",
+            "97435438",
+            "cubillas",
+            21006,
+            "spain",
+            "huelva",
+            null,
+            null,
+            3,
+            null));
+    mockProjects.add(
+        new Booking(
+            1L,
+            "Fran",
+            "Cano",
+            4968031,
+            "male",
+            "fran@gmail.com",
+            null,
+            "Dni",
+            "87435438",
+            "seca",
+            21005,
+            "spain",
+            "huelva",
+            null,
+            null,
+            3,
+            null));
+    mockProjects.add(
+        new Booking(
+            1L,
+            "Krisel",
+            "Urdaneta",
+            4968030,
+            "Female",
+            "krisel@gmail.com",
+            null,
+            "Dni",
+            "87435408",
+            "estepona",
+            41002,
+            "spain",
+            "seville",
+            null,
+            null,
+            3,
+            null));
+    mockProjects.add(
+        new Booking(
+            1L,
+            "Eva",
+            "Martinez",
+            4968034,
+            "Female",
+            "eva@gmail.com",
+            null,
+            "Dni",
+            "87435430",
+            "guadalquivir",
+            41005,
+            "spain",
+            "seville",
+            null,
+            null,
+            3,
+            null));
+    mockProjects.add(
+        new Booking(
+            1L,
+            "Hilmar",
+            "Hernandez",
+            4968034,
+            "Female",
+            "hilmar@gmail.com",
+            null,
+            "Dni",
+            "87430438",
+            "giralda",
+            41007,
+            "spain",
+            "seville",
+            null,
+            null,
+            3,
+            null));
+    when(iBookingRepository.findAll()).thenReturn(mockProjects);
 
-        List<Booking> mockProjects = new ArrayList<>();
-        mockProjects.add(new Booking(1L,"Jacky","Maravi",4962034,"Female","jacky@gmail.com",null,"Dni","97435438","cubillas",21006,"spain","huelva",null,null,3,null));
-        mockProjects.add(new Booking(1L,"Fran","Cano",4968031,"male","fran@gmail.com",null,"Dni","87435438","seca",21005,"spain","huelva",null,null,3,null));
-        mockProjects.add(new Booking(1L,"Krisel","Urdaneta",4968030,"Female","krisel@gmail.com",null,"Dni","87435408","estepona",41002,"spain","seville",null,null,3,null));
-        mockProjects.add(new Booking(1L,"Eva","Martinez",4968034,"Female","eva@gmail.com",null,"Dni","87435430","guadalquivir",41005,"spain","seville",null,null,3,null));
-        mockProjects.add(new Booking(1L,"Hilmar","Hernandez",4968034,"Female","hilmar@gmail.com",null,"Dni","87430438","giralda",41007,"spain","seville",null,null,3,null));
-        when(iBookingRepository.findAll()).thenReturn(mockProjects);
+    ArrayList<Booking> result = bookingService.getAllBookings();
 
-        ArrayList<Booking> result = bookingService.getAllBookings();
+    assertNotNull(result);
+    assertEquals(5, result.size());
+    assertEquals("Jacky", result.get(0).getName());
+    assertEquals("Fran", result.get(1).getName());
+    assertEquals("Krisel", result.get(2).getName());
+    assertEquals("Eva", result.get(3).getName());
+    assertEquals("Hilmar", result.get(4).getName());
 
-        assertNotNull(result);
-        assertEquals(5, result.size());
-        assertEquals("Jacky", result.get(0).getName());
-        assertEquals("Fran", result.get(1).getName());
-        assertEquals("Krisel", result.get(2).getName());
-        assertEquals("Eva", result.get(3).getName());
-        assertEquals("Hilmar", result.get(4).getName());
+    verify(iBookingRepository, times(1)).findAll();
+  }
 
-        verify(iBookingRepository, times(1)).findAll();
-    }
+  @Test
+  public void test_Get_Booking_By_Id() {
 
-    @Test
-    public void test_Get_Booking_By_Id() {
+    Booking mockProject =
+        new Booking(
+            1L,
+            "Alexia",
+            "Perez",
+            49680345,
+            "Female",
+            "alexia@gmail.com",
+            null,
+            "Dni",
+            "47430438",
+            "brunete",
+            43545,
+            "spain",
+            "cadiz",
+            null,
+            null,
+            3,
+            null);
+    Long bookingId = 1L;
 
-        Booking mockProject = new Booking(1L,"Alexia","Perez",49680345,"Female","alexia@gmail.com",null,"Dni","47430438","brunete",43545,"spain","cadiz",null,null,3,null);
-        Long bookingId = 1L;
+    when(iBookingRepository.findById(bookingId)).thenReturn(Optional.of(mockProject));
 
-        when(iBookingRepository.findById(bookingId)).thenReturn(Optional.of(mockProject));
+    Booking result = bookingService.getBookingById(bookingId);
 
-        Booking result = bookingService.getBookingById(bookingId);
+    assertNotNull(result);
+    assertEquals("Alexia", result.getName());
 
-        assertNotNull(result);
-        assertEquals("Alexia", result.getName());
+    verify(iBookingRepository, times(1)).findById(bookingId);
+  }
 
-        verify(iBookingRepository, times(1)).findById(bookingId);
-    }
-    @Test
-    public void test_Create_Booking() {
+  @Test
+  public void test_Create_Booking() {
 
-        Flight mockFlight = mock(Flight.class);
-        when(mockFlight.availableSeats()).thenReturn(10L);
-        when(mockFlight.getId()).thenReturn(1L);
+    Flight mockFlight = mock(Flight.class);
 
-        Route mockRoute = mock(Route.class);
+    when(mockFlight.availableSeats()).thenReturn(10L);
+    when(mockFlight.getId()).thenReturn(1L);
 
-        Booking newBooking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni","3454556","street piruleta",21003,"Spain","seville",null,mockRoute, 3,mockFlight);
+    Booking newBooking =
+        new Booking(
+            1L,
+            "Eva",
+            "Porter",
+            650349024,
+            "Female",
+            "hello@gmail.com",
+            null,
+            "dni",
+            "3454556",
+            "street piruleta",
+            21003,
+            "Spain",
+            "seville",
+            null,
+            new Route(),
+            3,
+            mockFlight);
 
-        when(flightService.getFlightById(mockFlight.getId())).thenReturn(mockFlight);
-        when(iBookingRepository.save(newBooking)).thenReturn(newBooking);
+    when(flightService.getFlightById(mockFlight.getId())).thenReturn(mockFlight);
+    when(routeService.getRouteById(Mockito.anyLong())).thenReturn(Optional.of(new Route()));
+    when(iBookingRepository.save(newBooking)).thenReturn(newBooking);
 
-        Booking result = bookingService.createBooking(newBooking);
+    Booking result = bookingService.createBooking(newBooking);
 
-        assertNotNull(result);
-        assertEquals("Eva", result.getName());
-        assertEquals(mockFlight, result.getFlight());
-        verify(iBookingRepository, times(1)).save(newBooking);
-        verify(flightService, times(1)).updateFlight(mockFlight.getId(), mockFlight);
-    }
-    @Test
-    public void testUpdateProject() {
+    assertNotNull(result);
+    assertEquals("Eva", result.getName());
+    assertEquals(mockFlight, result.getFlight());
+    verify(iBookingRepository, times(1)).save(newBooking);
+    verify(flightService, times(1)).updateFlight(mockFlight.getId(), mockFlight);
+  }
 
-        Booking booking = new Booking(1L,"Eva","Porter",650349024,"Female","hello@gmail.com",null,"dni","3454556","street piruleta",21003,"Spain","seville",null,null,3,null);
+  @Test
+  public void testUpdateProject() {
 
-        bookingService.updateBooking(booking);
+    Booking booking =
+        new Booking(
+            1L,
+            "Eva",
+            "Porter",
+            650349024,
+            "Female",
+            "hello@gmail.com",
+            null,
+            "dni",
+            "3454556",
+            "street piruleta",
+            21003,
+            "Spain",
+            "seville",
+            null,
+            null,
+            3,
+            null);
 
-        verify(iBookingRepository, times(1)).save(booking);
-    }
+    bookingService.updateBooking(booking);
 
-    @Test
-    public void test_Delete_Booking_Success() {
+    verify(iBookingRepository, times(1)).save(booking);
+  }
 
-        Long bookingId = 1L;
+  @Test
+  public void test_Delete_Booking_Success() {
 
-        String result = bookingService.deleteBooking(bookingId);
+    Long bookingId = 1L;
 
-        verify(iBookingRepository, times(1)).deleteById(bookingId);
+    String result = bookingService.deleteBooking(bookingId);
 
-        assertEquals("Delete Booking successful", result);
-    }
+    verify(iBookingRepository, times(1)).deleteById(bookingId);
 
-    @Test
-    public void test_Delete_if_Booking_Not_Found() {
+    assertEquals("Delete Booking successful", result);
+  }
 
-        Long bookingId = 1L;
-        doThrow(new RuntimeException("Booking not found")).when(iBookingRepository).deleteById(bookingId);
+  @Test
+  public void test_Delete_if_Booking_Not_Found() {
 
-        String result = bookingService.deleteBooking(bookingId);
+    Long bookingId = 1L;
+    doThrow(new RuntimeException("Booking not found"))
+        .when(iBookingRepository)
+        .deleteById(bookingId);
 
-        verify(iBookingRepository, times(1)).deleteById(bookingId);
+    String result = bookingService.deleteBooking(bookingId);
 
-        assertEquals("Booking not Found", result);
-    }
+    verify(iBookingRepository, times(1)).deleteById(bookingId);
+
+    assertEquals("Booking not Found", result);
+  }
 }
