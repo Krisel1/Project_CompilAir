@@ -135,17 +135,17 @@ public class FlightControllerTest {
     @Test
     void test_Get_Available_Flights() throws Exception {
         Route route = new Route("SVQ-PAR", 1L);
-        Flight flight1 = new Flight(1, "FL123", true,
+        Flight flight1 = new Flight(1L, "FL123", true,
                 LocalDateTime.of(2024, 9, 25, 10, 0),
                 LocalDateTime.of(2024, 9, 25, 12, 0),
                 100L,50L,"seville", route);
-        flight1.setReservedSeats(50);
+        flight1.setReservedSeats(50L);
 
-        Flight flight2 = new Flight(2, "FL456", true,
+        Flight flight2 = new Flight(2L, "FL456", true,
                 LocalDateTime.of(2024, 9, 25, 14, 0),
                 LocalDateTime.of(2024, 9, 25, 16, 0),
                 200L,100L, "seville",route);
-        flight2.setReservedSeats(200);
+        flight2.setReservedSeats(200L);
         when(flightService.getAvailableFlights("Madrid")).thenReturn(Arrays.asList(flight1));
 
         mockMvc.perform(get("/api/flights/available/{destination}", "Madrid"))

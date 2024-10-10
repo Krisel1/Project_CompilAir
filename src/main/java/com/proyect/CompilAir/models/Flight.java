@@ -17,7 +17,7 @@ public class Flight {
 
     @Id
     @GeneratedValue ( strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotBlank(message = "Flight number cannot be empty")
     @Size(max = 10, message = "The flight number cannot exceed 10 characters")
@@ -43,7 +43,7 @@ public class Flight {
 
     @Min(value = 0, message = "Reserved seats cannot be negative")
     @Column(nullable = false)
-    private long reservedSeats = 0;
+    private Long reservedSeats = 0L;
 
     @Column(name = "destination")
     private String destination;
@@ -57,7 +57,7 @@ public class Flight {
 
     }
 
-    public Flight(long id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, Long totalSeats, long reservedSeats,String destination,Route route) {
+    public Flight(Long id, String flightName, boolean flightStatus, LocalDateTime departureDate, LocalDateTime returnDate, Long totalSeats, Long reservedSeats,String destination,Route route) {
         this.id = id;
         this.flightName = flightName;
         this.flightStatus = flightStatus;

@@ -32,7 +32,7 @@ public class RoutesFlightsDataInitializer {
             flight1.setDepartureDate(LocalDateTime.of(2025, 10, 1, 8, 0));
             flight1.setReturnDate(LocalDateTime.of(2025, 10, 1, 9, 0));
             flight1.setTotalSeats(200L);
-            flight1.setReservedSeats(50);
+            flight1.setReservedSeats(50L);
             flight1.setDestination("Asturias");
 
             Flight flight2 = new Flight();
@@ -42,7 +42,7 @@ public class RoutesFlightsDataInitializer {
             flight2.setDepartureDate(LocalDateTime.of(2025, 10, 2, 9, 0));
             flight2.setReturnDate(LocalDateTime.of(2025, 10, 2, 10, 0));
             flight2.setTotalSeats(200L);
-            flight2.setReservedSeats(50);
+            flight2.setReservedSeats(50L);
             flight2.setDestination("Asturias");
 
             Flight flight3 = new Flight();
@@ -52,7 +52,7 @@ public class RoutesFlightsDataInitializer {
             flight3.setDepartureDate(LocalDateTime.of(2025, 10, 2, 9, 0));
             flight3.setReturnDate(LocalDateTime.of(2025, 10, 2, 10, 0));
             flight3.setTotalSeats(200L);
-            flight3.setReservedSeats(50);
+            flight3.setReservedSeats(50L);
             flight3.setDestination("Barcelona");
 
             Flight flight4 = new Flight();
@@ -62,7 +62,7 @@ public class RoutesFlightsDataInitializer {
             flight4.setDepartureDate(LocalDateTime.of(2025, 10, 2, 10, 0));
             flight4.setReturnDate(LocalDateTime.of(2025, 10, 2, 11, 0));
             flight4.setTotalSeats(200L);
-            flight4.setReservedSeats(50);
+            flight4.setReservedSeats(50L);
             flight4.setDestination("Barcelona");
 
             Flight flight5 = new Flight();
@@ -72,7 +72,7 @@ public class RoutesFlightsDataInitializer {
             flight5.setDepartureDate(LocalDateTime.of(2025, 10, 2, 10, 0));
             flight5.setReturnDate(LocalDateTime.of(2025, 10, 2, 11, 0));
             flight5.setTotalSeats(200L);
-            flight5.setReservedSeats(50);
+            flight5.setReservedSeats(50L);
             flight5.setDestination("Ibiza");
 
             flight1 = iFlightRepository.save(flight1);
@@ -81,7 +81,7 @@ public class RoutesFlightsDataInitializer {
             flight4 = iFlightRepository.save(flight4);
             flight5 = iFlightRepository.save(flight5);
 
-            // Add the flights to their respective routes
+
             route1.getFlights().add(flight1);
             route1.getFlights().add(flight2);
 
